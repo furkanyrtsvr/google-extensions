@@ -12,6 +12,12 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 SLUGS = ('bom-list-helper-digikey', 'pcb-guard', 'unit-converter', 'viewer-helper-github')
+FOLDERS = {
+    'bom-list-helper-digikey': '01-bom-list-helper-digikey',
+    'viewer-helper-github': '02-viewer-helper-github',
+    'unit-converter': '03-unit-converter',
+    'pcb-guard': '04-pcb-guard',
+}
 
 def git(*args):
     return subprocess.check_output(['git', *args], cwd=ROOT).decode('utf8').strip()
@@ -37,10 +43,15 @@ def runtime_file(name):
 def source_tree(slug, ref):
     # Imported release tags retain their original repository layout/history.
     paths = git('ls-tree', '--name-only', ref).splitlines()
-    return ref + ':' + slug if slug in paths else ref + '^{tree}'
+    for folder in (FOLDERS[slug], slug):
+        if folder in paths:
+            return ref + ':' + folder
+    if 'manifest.json' in paths:
+        return ref + '^{tree}'
+    raise ValueError(f'Extension {slug} is missing at {ref}')
 
 def changed(slug, tag, ref='HEAD'):
-    paths = git('diff', '--name-only', source_tree(slug, tag), ref + ':' + slug).splitlines()
+    paths = git('diff', '--name-only', source_tree(slug, tag), source_tree(slug, ref)).splitlines()
     return any(runtime_file(p) or p == 'VERSION' for p in paths)
 
 def package(slug, ref='HEAD', destination=None):
@@ -119,16 +130,17 @@ def release(selected):
             continue
         if selected == 'auto' and previous and not changed(slug, previous):
             continue
-        current = version((ROOT / slug / 'VERSION').read_text().strip())
+        folder = FOLDERS[slug]
+        current = version((ROOT / folder / 'VERSION').read_text().strip())
         prior = version(previous[len(slug) + 2:]) if previous else None
         next_version = current if prior is None or current > prior else (*prior[:2], prior[2] + 1)
         number = '.'.join(map(str, next_version))
-        (ROOT / slug / 'VERSION').write_text(number + '\n', encoding='utf8')
-        manifest_path = ROOT / slug / 'manifest.json'
+        (ROOT / folder / 'VERSION').write_text(number + '\n', encoding='utf8')
+        manifest_path = ROOT / folder / 'manifest.json'
         manifest = json.loads(manifest_path.read_text(encoding='utf8'))
         manifest['version'] = number
         manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf8')
-        git('add', slug + '/VERSION', slug + '/manifest.json')
+        git('add', folder + '/VERSION', folder + '/manifest.json')
         planned.append((slug, slug + '-v' + number))
     if planned:
         git('config', 'user.name', 'github-actions[bot]')

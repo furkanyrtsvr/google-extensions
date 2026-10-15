@@ -19,7 +19,7 @@ Chrome Web Store kimliği: `impdbdcoeknblhnpnbbnjhnjbcenhfkh`. [Mağaza sayfası
 
 Kaynak kodundan kurulum:
 
-1. `google-extensions` deposunu klonlayıp `pcb-guard/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
+1. `google-extensions` deposunu klonlayıp `04-pcb-guard/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
 2. Chrome’da `chrome://extensions` sayfasını açın.
 3. Geliştirici modunu açın ve **Paketlenmemiş öğe yükle / Load unpacked** seçeneğini kullanın.
 4. Doğrudan `manifest.json` içeren klasörü seçin.
@@ -57,7 +57,7 @@ storage: hesap ayarları ve tercihler. Manifest sayfa okuma veya geniş host izn
 
 ## Geliştirme ve kontrol
 
-Komutları deponun `pcb-guard/` klasöründe çalıştırın.
+Komutları deponun `04-pcb-guard/` klasöründe çalıştırın.
 
 ```sh
 node scripts/check-extension.mjs

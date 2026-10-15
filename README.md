@@ -4,10 +4,10 @@ Elektronik tasarım, mühendislik hesapları, malzeme listeleri ve GitHub dosya 
 
 | Eklenti | Amacı | Taşınan sürüm | İndir |
 | --- | --- | --- | --- |
-| [BOM List Helper for DigiKey](bom-list-helper-digikey/README.md) | DigiKey ürünlerinden proje bazlı BOM listeleri ve Excel çıktısı. | 1.0.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=bom-list-helper-digikey-v&expanded=true) |
-| [PCB Guard](pcb-guard/README.md) | Çevrimdışı PCB iz, via, açıklık ve empedans hesapları. | 1.0.1 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=pcb-guard-v&expanded=true) |
-| [Unit Converter](unit-converter/README.md) | Mühendislik birimleri ve elektronik hesaplamaları. | 1.1.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=unit-converter-v&expanded=true) |
-| [Viewer Helper for GitHub](viewer-helper-github/README.md) | GitHub dosyaları için PCB, KiCad, 3B, medya ve tablo önizleme. | 1.1.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=viewer-helper-github-v&expanded=true) |
+| [BOM List Helper for DigiKey](01-bom-list-helper-digikey/README.md) | DigiKey ürünlerinden proje bazlı BOM listeleri ve Excel çıktısı. | 1.0.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=bom-list-helper-digikey-v&expanded=true) |
+| [PCB Guard](04-pcb-guard/README.md) | Çevrimdışı PCB iz, via, açıklık ve empedans hesapları. | 1.0.1 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=pcb-guard-v&expanded=true) |
+| [Unit Converter](03-unit-converter/README.md) | Mühendislik birimleri ve elektronik hesaplamaları. | 1.1.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=unit-converter-v&expanded=true) |
+| [Viewer Helper for GitHub](02-viewer-helper-github/README.md) | GitHub dosyaları için PCB, KiCad, 3B, medya ve tablo önizleme. | 1.1.0 | [Sürümler ve ZIP](https://github.com/furkanyrtsvr/google-extensions/releases?q=viewer-helper-github-v&expanded=true) |
 
 ## Kurulum
 
@@ -21,16 +21,16 @@ Kaynak kodunu klonladıysanız koleksiyonun kökünü değil, ilgili eklentinin 
 ## Eklentilerden görseller
 
 ### BOM List Helper for DigiKey
-![DigiKey BOM listesi](bom-list-helper-digikey/docs/images/01.png)
+![DigiKey BOM listesi](01-bom-list-helper-digikey/docs/images/01.png)
 
 ### PCB Guard
-![PCB iz hesabı](pcb-guard/docs/images/01.png)
+![PCB iz hesabı](04-pcb-guard/docs/images/01.png)
 
 ### Unit Converter
-![Birim dönüştürücü](unit-converter/docs/images/01.png)
+![Birim dönüştürücü](03-unit-converter/docs/images/01.png)
 
 ### Viewer Helper for GitHub
-![GitHub önizleme yardımcısı](viewer-helper-github/docs/images/01.png)
+![GitHub önizleme yardımcısı](02-viewer-helper-github/docs/images/01.png)
 
 Her eklentinin kendi README’sinde dört görsel ve ayrıntılı kullanım adımları bulunur.
 

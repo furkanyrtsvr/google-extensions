@@ -35,6 +35,9 @@ class Releases(unittest.TestCase):
         self.commit()
         for slug in ext.SLUGS:
             self.run_git('tag', slug + '-v1.0.0')
+        for slug in ext.SLUGS:
+            self.run_git('mv', slug, ext.FOLDERS[slug])
+        self.commit()
 
     def tearDown(self):
         self.root_patch.stop()
@@ -49,11 +52,15 @@ class Releases(unittest.TestCase):
 
     def test_docs_and_siblings_do_not_change_extension(self):
         slug = ext.SLUGS[0]
-        (self.root / slug / 'README.md').write_text('Updated documentation')
-        (self.root / ext.SLUGS[1] / 'app.js').write_text('const answer = 43;')
+        (self.root / ext.FOLDERS[slug] / 'README.md').write_text('Updated documentation')
+        (self.root / ext.FOLDERS[ext.SLUGS[1]] / 'app.js').write_text('const answer = 43;')
         self.commit()
         self.assertFalse(ext.changed(slug, slug + '-v1.0.0'))
         self.assertTrue(ext.changed(ext.SLUGS[1], ext.SLUGS[1] + '-v1.0.0'))
+
+    def test_folder_rename_preserves_versions_and_source(self):
+        for slug in ext.SLUGS:
+            self.assertFalse(ext.changed(slug, slug + '-v1.0.0'))
 
     def test_zip_only_contains_selected_runtime_at_root(self):
         slug = ext.SLUGS[0]
@@ -70,7 +77,7 @@ class Releases(unittest.TestCase):
     def test_imported_tag_original_root_layout(self):
         slug = ext.SLUGS[0]
         self.run_git('tag', '-d', slug + '-v1.0.0')
-        tree = self.run_git('rev-parse', 'HEAD:' + slug)
+        tree = self.run_git('rev-parse', 'HEAD:' + ext.FOLDERS[slug])
         commit = subprocess.run(['git', 'commit-tree', tree], cwd=self.root, input='Historical release\n', text=True, capture_output=True, check=True).stdout.strip()
         self.run_git('tag', slug + '-v1.0.0', commit)
         self.assertFalse(ext.changed(slug, slug + '-v1.0.0'))
@@ -82,15 +89,15 @@ class Releases(unittest.TestCase):
         subprocess.run(['git', 'init', '--bare', str(remote)], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         self.run_git('remote', 'add', 'origin', str(remote))
         slug = ext.SLUGS[1]
-        (self.root / slug / 'app.js').write_text('const answer = 43;')
+        (self.root / ext.FOLDERS[slug] / 'app.js').write_text('const answer = 43;')
         self.commit()
         self.run_git('push', 'origin', 'main', '--tags')
         with patch.dict(os.environ, {'GITHUB_REPOSITORY': 'test/collection'}), patch.object(ext, 'api', return_value={'assets': [{'name': 'existing.zip'}]}), patch.object(ext, 'publish') as publish:
             ext.release('auto')
             publish.assert_called_once_with(slug, slug + '-v1.0.1')
-        self.assertEqual((self.root / slug / 'VERSION').read_text().strip(), '1.0.1')
+        self.assertEqual((self.root / ext.FOLDERS[slug] / 'VERSION').read_text().strip(), '1.0.1')
         for sibling in set(ext.SLUGS) - {slug}:
-            self.assertEqual((self.root / sibling / 'VERSION').read_text().strip(), '1.0.0')
+            self.assertEqual((self.root / ext.FOLDERS[sibling] / 'VERSION').read_text().strip(), '1.0.0')
             self.assertEqual(ext.tags_for(sibling), [sibling + '-v1.0.0'])
         self.assertEqual(self.run_git('rev-parse', 'origin/main'), self.run_git('rev-parse', 'HEAD'))
 

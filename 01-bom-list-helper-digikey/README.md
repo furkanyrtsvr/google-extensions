@@ -19,7 +19,7 @@ Chrome Web Store kimliği: `elebnflejdljoccmehkeepkgadijbjgm`. [Mağaza sayfası
 
 Kaynak kodundan kurulum:
 
-1. `google-extensions` deposunu klonlayıp `bom-list-helper-digikey/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
+1. `google-extensions` deposunu klonlayıp `01-bom-list-helper-digikey/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
 2. Chrome’da `chrome://extensions` sayfasını açın.
 3. Geliştirici modunu açın ve **Paketlenmemiş öğe yükle / Load unpacked** seçeneğini kullanın.
 4. Doğrudan `manifest.json` içeren klasörü seçin.
@@ -57,7 +57,7 @@ storage: proje ve ayarlar; activeTab/scripting: ürün sayfasıyla çalışma; d
 
 ## Geliştirme ve kontrol
 
-Komutları deponun `bom-list-helper-digikey/` klasöründe çalıştırın.
+Komutları deponun `01-bom-list-helper-digikey/` klasöründe çalıştırın.
 
 ```sh
 node scripts/check-extension.mjs

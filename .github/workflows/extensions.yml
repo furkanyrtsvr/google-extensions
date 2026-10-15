@@ -21,7 +21,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        extension: [bom-list-helper-digikey, pcb-guard, unit-converter, viewer-helper-github]
+        include:
+          - extension: bom-list-helper-digikey
+            folder: 01-bom-list-helper-digikey
+          - extension: viewer-helper-github
+            folder: 02-viewer-helper-github
+          - extension: unit-converter
+            folder: 03-unit-converter
+          - extension: pcb-guard
+            folder: 04-pcb-guard
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,10 +41,10 @@ jobs:
         with:
           python-version: '3.13'
       - run: node scripts/check-extension.mjs
-        working-directory: ${{ matrix.extension }}
+        working-directory: ${{ matrix.folder }}
       - if: matrix.extension == 'pcb-guard'
         run: node scripts/run-tests.mjs
-        working-directory: pcb-guard
+        working-directory: 04-pcb-guard
       - run: python -m unittest discover -s maintenance/tests -v
       - run: python maintenance/scripts/extensions.py package ${{ matrix.extension }}
       - uses: actions/upload-artifact@v4

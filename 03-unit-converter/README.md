@@ -19,7 +19,7 @@ Chrome Web Store kimliği: `mommgdhpboankjnbdoiphmljmekfhjja`. [Mağaza sayfası
 
 Kaynak kodundan kurulum:
 
-1. `google-extensions` deposunu klonlayıp `unit-converter/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
+1. `google-extensions` deposunu klonlayıp `03-unit-converter/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
 2. Chrome’da `chrome://extensions` sayfasını açın.
 3. Geliştirici modunu açın ve **Paketlenmemiş öğe yükle / Load unpacked** seçeneğini kullanın.
 4. Doğrudan `manifest.json` içeren klasörü seçin.
@@ -57,7 +57,7 @@ storage: tercihler; clipboardWrite: sonuç kopyalama. Content script tüm adresl
 
 ## Geliştirme ve kontrol
 
-Komutları deponun `unit-converter/` klasöründe çalıştırın.
+Komutları deponun `03-unit-converter/` klasöründe çalıştırın.
 
 ```sh
 node scripts/check-extension.mjs
