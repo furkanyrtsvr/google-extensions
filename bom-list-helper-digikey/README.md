@@ -4,7 +4,7 @@ DigiKey ürünlerini tek tek kopyalama işini azaltmak ve elektronik projelerin 
 
 İlk aktarımın kaynak tabanı: **1.0** · Chrome Manifest V3
 
-[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/bom-list-helper-digikey/releases/latest)
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/google-extensions/releases?q=bom-list-helper-digikey-v&expanded=true)
 
 ## Özellikler
 
@@ -19,7 +19,7 @@ Chrome Web Store kimliği: `elebnflejdljoccmehkeepkgadijbjgm`. [Mağaza sayfası
 
 Kaynak kodundan kurulum:
 
-1. Depoyu klonlayın veya GitHub Release ZIP’ini indirip açın.
+1. `google-extensions` deposunu klonlayıp `bom-list-helper-digikey/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
 2. Chrome’da `chrome://extensions` sayfasını açın.
 3. Geliştirici modunu açın ve **Paketlenmemiş öğe yükle / Load unpacked** seçeneğini kullanın.
 4. Doğrudan `manifest.json` içeren klasörü seçin.
@@ -57,6 +57,8 @@ storage: proje ve ayarlar; activeTab/scripting: ürün sayfasıyla çalışma; d
 
 ## Geliştirme ve kontrol
 
+Komutları deponun `bom-list-helper-digikey/` klasöründe çalıştırın.
+
 ```sh
 node scripts/check-extension.mjs
 ```
@@ -69,10 +71,12 @@ Kontrol, manifestte başvurulan dosyaları ve JavaScript sözdizimini doğrular.
 
 ## Sürümler ve kaynak düzeni
 
-`manifest.json` eklenti giriş noktalarını tanımlar. README görselleri `docs/images/`, kontrol/paketleme araçları `scripts/` altındadır. Chrome tarafından üretilen `_metadata` dosyaları kaynak depoya alınmadı. Manifestteki `key` mağaza kimliğini koruyan açık anahtardır; özel imzalama anahtarı değildir.
+`manifest.json` eklenti giriş noktalarını tanımlar. README görselleri `docs/images/`, yerel kontrol araçları `scripts/`, ortak paketleme/sürüm araçları deponun kökündeki `../scripts/` altındadır. Chrome tarafından üretilen `_metadata` dosyaları kaynak depoya alınmadı. Manifestteki `key` mağaza kimliğini koruyan açık anahtardır; özel imzalama anahtarı değildir.
 
-main dalındaki değişiklikler kontrollerden sonra otomatik GitHub Release ve paketlenmemiş kurulum ZIP’i üretir. GitHub sürümü yayımlamak Chrome Web Store’a otomatik gönderim yapmaz. [Sürüm rehberi](docs/SURUMLEME.md).
+`google-extensions` deposunun main dalında bu eklentinin çalışma dosyaları değiştiğinde kontrollerden sonra bağımsız `bom-list-helper-digikey-vMAJOR.MINOR.PATCH` etiketi, GitHub Release ve kurulum ZIP’i üretilir. Diğer eklentilerin sürümü değişmez; yalnızca README/görsel değişiklikleri yeni sürüm çıkarmaz. GitHub sürümü yayımlamak Chrome Web Store’a otomatik gönderim yapmaz. [Sürüm rehberi](docs/SURUMLEME.md).
 
 ## Lisans
 
 Bu kaynak aktarımı yeni bir proje lisansı atamaz. Depodaki üçüncü taraf kütüphanelerin gömülü telif ve lisans bildirimleri korunmuştur. Ayrı bir açık kaynak lisansı belirlenmeden kullanım/dağıtım haklarının serbest olduğu varsayılmamalıdır.
+
+[← Google Extensions koleksiyonu](../README.md)

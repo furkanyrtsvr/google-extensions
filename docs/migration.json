@@ -1,0 +1,54 @@
+{
+  "source_owner": "furkanyrtsvr",
+  "target_repository": "furkanyrtsvr/google-extensions",
+  "extensions": {
+    "bom-list-helper-digikey": {
+      "imported_head": "a762ae0e69b41c274a581adb2784ffe236f64b56",
+      "tags": {
+        "bom-list-helper-digikey-v1.0.0": "fe536fb320252dc9350068d1fc02ebb70c3b73af"
+      },
+      "assets": [
+        {
+          "name": "bom-list-helper-for-digikey-1.0.0.zip",
+          "sha256": "2ef22b82d93fd862755e7336003d0e767dabadf6da1d0668eb3217f6de8028a9"
+        }
+      ]
+    },
+    "pcb-guard": {
+      "imported_head": "a4a43471aaeab3a0577c10b1639d6d2096069fdb",
+      "tags": {
+        "pcb-guard-v1.0.1": "df917626f7fd77ba3f73ade9936c2d2616caa876"
+      },
+      "assets": [
+        {
+          "name": "pcb-guard-1.0.1.zip",
+          "sha256": "8efeebfe2638197aed12065bc71ef0a37fa9d1ee1294c8a1b00b03473ac77f43"
+        }
+      ]
+    },
+    "unit-converter": {
+      "imported_head": "be4f9f5776dd5b150cec1ccdd475f228e6459beb",
+      "tags": {
+        "unit-converter-v1.1.0": "6cd76e4c2c967e1a42adfca68a961d589a0200d5"
+      },
+      "assets": [
+        {
+          "name": "unit-converter-1.1.0.zip",
+          "sha256": "0cbc83d2775835cf3c74dd06c138eab7c38f89a00e6c60802544b887df99df2b"
+        }
+      ]
+    },
+    "viewer-helper-github": {
+      "imported_head": "8f2b3b692e4d61db7dfd62981396b3b2771b1b41",
+      "tags": {
+        "viewer-helper-github-v1.1.0": "19130bb92e9e4900d5ef596c8ff6cdf722e48871"
+      },
+      "assets": [
+        {
+          "name": "viewer-helper-for-github-1.1.0.zip",
+          "sha256": "18554958e51e40f846ed06631958ed84ea50e8de22236cd0b27466561458553b"
+        }
+      ]
+    }
+  }
+}

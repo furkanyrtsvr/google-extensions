@@ -4,7 +4,7 @@ Mühendislik birim dönüşümlerini ve temel elektronik yardımcılarını tara
 
 İlk aktarımın kaynak tabanı: **1.1** · Chrome Manifest V3
 
-[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/unit-converter/releases/latest)
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/google-extensions/releases?q=unit-converter-v&expanded=true)
 
 ## Özellikler
 
@@ -19,7 +19,7 @@ Chrome Web Store kimliği: `mommgdhpboankjnbdoiphmljmekfhjja`. [Mağaza sayfası
 
 Kaynak kodundan kurulum:
 
-1. Depoyu klonlayın veya GitHub Release ZIP’ini indirip açın.
+1. `google-extensions` deposunu klonlayıp `unit-converter/` klasörünü kullanın veya yukarıdaki bağlantıdan yalnızca bu eklentinin kurulum ZIP’ini indirip açın.
 2. Chrome’da `chrome://extensions` sayfasını açın.
 3. Geliştirici modunu açın ve **Paketlenmemiş öğe yükle / Load unpacked** seçeneğini kullanın.
 4. Doğrudan `manifest.json` içeren klasörü seçin.
@@ -57,6 +57,8 @@ storage: tercihler; clipboardWrite: sonuç kopyalama. Content script tüm adresl
 
 ## Geliştirme ve kontrol
 
+Komutları deponun `unit-converter/` klasöründe çalıştırın.
+
 ```sh
 node scripts/check-extension.mjs
 ```
@@ -69,10 +71,12 @@ Sayfa üzerindeki yardımcı, algılanabilen metin/birim biçimleriyle sınırl�
 
 ## Sürümler ve kaynak düzeni
 
-`manifest.json` eklenti giriş noktalarını tanımlar. README görselleri `docs/images/`, kontrol/paketleme araçları `scripts/` altındadır. Chrome tarafından üretilen `_metadata` dosyaları kaynak depoya alınmadı. Manifestteki `key` mağaza kimliğini koruyan açık anahtardır; özel imzalama anahtarı değildir.
+`manifest.json` eklenti giriş noktalarını tanımlar. README görselleri `docs/images/`, yerel kontrol araçları `scripts/`, ortak paketleme/sürüm araçları deponun kökündeki `../scripts/` altındadır. Chrome tarafından üretilen `_metadata` dosyaları kaynak depoya alınmadı. Manifestteki `key` mağaza kimliğini koruyan açık anahtardır; özel imzalama anahtarı değildir.
 
-main dalındaki değişiklikler kontrollerden sonra otomatik GitHub Release ve paketlenmemiş kurulum ZIP’i üretir. GitHub sürümü yayımlamak Chrome Web Store’a otomatik gönderim yapmaz. [Sürüm rehberi](docs/SURUMLEME.md).
+`google-extensions` deposunun main dalında bu eklentinin çalışma dosyaları değiştiğinde kontrollerden sonra bağımsız `unit-converter-vMAJOR.MINOR.PATCH` etiketi, GitHub Release ve kurulum ZIP’i üretilir. Diğer eklentilerin sürümü değişmez; yalnızca README/görsel değişiklikleri yeni sürüm çıkarmaz. GitHub sürümü yayımlamak Chrome Web Store’a otomatik gönderim yapmaz. [Sürüm rehberi](docs/SURUMLEME.md).
 
 ## Lisans
 
 Bu kaynak aktarımı yeni bir proje lisansı atamaz. Depodaki üçüncü taraf kütüphanelerin gömülü telif ve lisans bildirimleri korunmuştur. Ayrı bir açık kaynak lisansı belirlenmeden kullanım/dağıtım haklarının serbest olduğu varsayılmamalıdır.
+
+[← Google Extensions koleksiyonu](../README.md)

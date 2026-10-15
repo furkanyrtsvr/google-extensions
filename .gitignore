@@ -1,0 +1,7 @@
+.release/
+__pycache__/
+*.pyc
+node_modules/
+.env
+*.pem
+_metadata/

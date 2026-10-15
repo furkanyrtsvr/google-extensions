@@ -1,0 +1,63 @@
+name: Verify and release extensions
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: auto checks runtime changes; select an extension to force its next version
+        type: choice
+        default: auto
+        options: [auto, bom-list-helper-digikey, pcb-guard, unit-converter, viewer-helper-github]
+permissions:
+  contents: read
+concurrency:
+  group: extensions-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        extension: [bom-list-helper-digikey, pcb-guard, unit-converter, viewer-helper-github]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: node scripts/check-extension.mjs
+        working-directory: ${{ matrix.extension }}
+      - if: matrix.extension == 'pcb-guard'
+        run: node scripts/run-tests.mjs
+        working-directory: pcb-guard
+      - run: python -m unittest discover -s tests -v
+      - run: python scripts/extensions.py package ${{ matrix.extension }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.extension }}-install
+          path: .release/*.zip
+  release:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Publish only changed extensions
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXTENSION: ${{ inputs.extension || 'auto' }}
+        run: python scripts/extensions.py release --extension "$EXTENSION"
