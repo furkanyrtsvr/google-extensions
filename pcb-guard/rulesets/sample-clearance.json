@@ -1,0 +1,87 @@
+{
+    "id": "sample_iec_60664",
+    "name": "Sample IEC 60664-1 Template",
+    "standard": "IEC 60664-1",
+    "version": "User Template v1.0",
+    "description": "SAMPLE ONLY - Replace with values from your licensed IEC 60664-1 standard. These values are approximations for demonstration purposes only.",
+    "tables": {
+        "clearance": {
+            "pollution_degree_1": {
+                "50": 0.04,
+                "100": 0.1,
+                "150": 0.5,
+                "300": 0.8,
+                "400": 1.5,
+                "600": 2.0,
+                "800": 3.0,
+                "1000": 3.5
+            },
+            "pollution_degree_2": {
+                "50": 0.2,
+                "100": 0.2,
+                "150": 0.5,
+                "300": 1.5,
+                "400": 2.0,
+                "600": 3.0,
+                "800": 4.0,
+                "1000": 5.0
+            },
+            "pollution_degree_3": {
+                "50": 0.8,
+                "100": 0.8,
+                "150": 1.0,
+                "300": 2.0,
+                "400": 2.5,
+                "600": 4.0,
+                "800": 5.5,
+                "1000": 8.0
+            }
+        },
+        "creepage": {
+            "material_group_I": {
+                "50": 0.6,
+                "100": 1.0,
+                "150": 1.5,
+                "300": 3.2,
+                "400": 4.0,
+                "600": 5.5
+            },
+            "material_group_II": {
+                "50": 0.9,
+                "100": 1.4,
+                "150": 2.0,
+                "300": 4.0,
+                "400": 5.0,
+                "600": 7.1
+            },
+            "material_group_IIIa": {
+                "50": 1.2,
+                "100": 1.8,
+                "150": 2.5,
+                "300": 5.0,
+                "400": 6.3,
+                "600": 9.0
+            },
+            "material_group_IIIb": {
+                "50": 1.5,
+                "100": 2.2,
+                "150": 3.2,
+                "300": 6.3,
+                "400": 8.0,
+                "600": 11.0
+            }
+        }
+    },
+    "notes": [
+        "⚠️ SAMPLE DATA ONLY - NOT FOR PRODUCTION USE",
+        "Values in millimeters (mm)",
+        "This template demonstrates the JSON format for clearance/creepage rulesets",
+        "Replace with actual values from your licensed IEC 60664-1 standard",
+        "The actual standard contains many more voltage levels and conditions"
+    ],
+    "metadata": {
+        "created": "2026-01-20",
+        "author": "PCB Guard Template",
+        "disclaimer": "This is a demonstration template. For actual design work, use values from the licensed IEC 60664-1 standard."
+    }
+}

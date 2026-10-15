@@ -1,0 +1,29 @@
+{
+  "action": {
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png"
+    },
+    "default_popup": "popup.html",
+    "default_title": "PCB Guard - Design Calculator"
+  },
+  "author": "PCB Guard Team",
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'none'"
+  },
+  "description": "Offline PCB design calculator: Trace, Via, Diff-Pair, Clearance. IPC standards based, provably accurate.",
+  "icons": {
+    "128": "icons/icon128.png",
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA3uB34/zIeNjNtKrkGhUPlPWs5V8unxeItdhWtbb4SODORebdj+I8STU4TtlseRRzbEqgcQcdEMRa+lHPsF7oLI5gP9i5W38ZmZo5RNBUmDj5RofeLh4HhD2vv29Ux500cWR36GNR7cwZfCYH0jmQTSp3rauYBkcVmdcWc4rpuckGXGIfh+v+gXWodlcLlRJpwdo8hTiyXO7JQMkzd68pkx3RvHYxOsB2a/bE/KmhYWfQh6MRhNPcjTXEpH0lRVNumv1KBBf3EVwfnbi6vDVbYGhD5iBa9FLAUmsrhQLJCIoyuOFtrS/SvXBVmbrmtpIk6uOBdSDUn2mZ/gyxZpPFlwIDAQAB",
+  "manifest_version": 3,
+  "name": "PCB Guard",
+  "offline_enabled": true,
+  "permissions": [
+    "storage"
+  ],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "1.0.1"
+}

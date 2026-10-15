@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Guard - Test Runner</title>
+    <style>
+        body {
+            font-family: system-ui;
+            background: #1a1a2e;
+            color: #e8e8e8;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #4fd1c5;
+        }
+
+        .test-suite {
+            margin: 20px 0;
+            padding: 15px;
+            background: #1f2940;
+            border-radius: 8px;
+        }
+
+        .test-suite h2 {
+            margin: 0 0 15px;
+            font-size: 16px;
+        }
+
+        .test {
+            padding: 8px;
+            margin: 4px 0;
+            border-radius: 4px;
+            font-size: 13px;
+        }
+
+        .test.pass {
+            background: rgba(72, 187, 120, 0.15);
+            color: #48bb78;
+        }
+
+        .test.fail {
+            background: rgba(252, 129, 129, 0.15);
+            color: #fc8181;
+        }
+
+        .summary {
+            padding: 15px;
+            background: #16213e;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .summary.all-pass {
+            border: 2px solid #48bb78;
+        }
+
+        .summary.has-fail {
+            border: 2px solid #fc8181;
+        }
+
+        pre {
+            font-size: 11px;
+            background: #0a0a14;
+            padding: 10px;
+            border-radius: 4px;
+            overflow: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>⚡ PCB Guard Test Runner</h1>
+    <p>Automated test suite for calculation validation</p>
+
+    <div id="results"></div>
+    <div id="summary"></div>
+
+    <script src="../core/constants.js"></script>
+    <script src="../core/units.js"></script>
+    <script src="../core/presets.js"></script>
+    <script src="../calc/trace-width.js"></script>
+    <script src="../calc/voltage-drop.js"></script>
+    <script src="../calc/via-sizing.js"></script>
+    <script src="../calc/via-current.js"></script>
+    <script src="../calc/differential-pairs.js"></script>
+    <script src="test-runner.js"></script>
+    <script src="test-trace-width.js"></script>
+    <script src="test-voltage-drop.js"></script>
+    <script src="test-units.js"></script>
+    <script src="test-differential.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            TestRunner.runAll();
+            TestRunner.displayResults();
+        });
+    </script>
+</body>
+
+</html>

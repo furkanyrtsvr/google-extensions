@@ -1,0 +1,6 @@
+Type,w_mm,s_mm,h_mm,t_mm,Er,ExpectedZ0,ExpectedZdiff,Tolerance_pct,Source
+microstrip,0.20,0.15,0.20,0.035,4.5,55,85,5,Calculated example
+microstrip,0.15,0.15,0.15,0.035,4.5,65,100,5,100ohm diff pair target
+microstrip,0.30,0.20,0.25,0.035,4.0,45,75,5,Wider trace
+stripline,0.15,0.15,0.40,0.035,4.5,50,80,8,Stripline example
+microstrip,0.12,0.12,0.10,0.018,4.3,70,110,5,HDI example
