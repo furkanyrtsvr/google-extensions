@@ -1,0 +1,92 @@
+{
+  "action": {
+    "default_icon": {
+      "128": "icon.png",
+      "16": "icon.png",
+      "48": "icon.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "css": [
+        "content.css"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "matches": [
+        "https://github.com/*"
+      ]
+    },
+    {
+      "all_frames": true,
+      "js": [
+        "tracespace-bridge.js"
+      ],
+      "matches": [
+        "https://tracespace.io/view/*"
+      ]
+    },
+    {
+      "all_frames": true,
+      "js": [
+        "kicanvas-bridge.js"
+      ],
+      "matches": [
+        "https://kicanvas.org/*"
+      ],
+      "run_at": "document_start"
+    },
+    {
+      "all_frames": true,
+      "js": [
+        "convert3d-bridge.js"
+      ],
+      "matches": [
+        "https://convert3d.org/*"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "enabled": true,
+        "id": "ruleset_1",
+        "path": "rules.json"
+      }
+    ]
+  },
+  "description": "Powerful all-in-one previewer for Video, Audio, Excel, 3D, and PCB files directly in GitHub.",
+  "host_permissions": [
+    "https://github.com/*",
+    "https://raw.githubusercontent.com/*",
+    "https://tracespace.io/*",
+    "https://kicanvas.org/*",
+    "https://convert3d.org/*"
+  ],
+  "icons": {
+    "128": "icon.png",
+    "16": "icon.png",
+    "48": "icon.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA203Q14GfZvl62FVLmYJ6vOSJ/GU2tFEw8R9rclwbfDIbqo193tznHY7vT/e/Y84txXSykrGzCFQHfJKfZC0a9k596qmEK/w0M6/psbkxCofrLhxv0z5msZ8ci56giGuqBbPuoWHC7TQ/X3w/3jQV/FHP8pRTB0Kbv00WsV7eKmc4J1MeXM2foJqdhAVNYRbKrzDns6G5bluGTZvn0gvVHpiM5CqpH92p1+4GfgoJFMJLPshlepQTp3wE3+58do33Z5pxS4YTN/iALV+Hd2BFjC82kpND/rPO6Nn2Bzea7BZe1FnGQBaFwKEtrrRCO22EP9tJlXMs9FxJ/kN+cGvd4QIDAQAB",
+  "manifest_version": 3,
+  "name": "Viewer Helper for GitHub",
+  "permissions": [
+    "declarativeNetRequest"
+  ],
+  "update_url": "https://clients2.google.com/service/update2/crx",
+  "version": "1.1.0",
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "https://github.com/*"
+      ],
+      "resources": [
+        "assets/*",
+        "viewer.html"
+      ]
+    }
+  ]
+}
