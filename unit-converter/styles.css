@@ -1,0 +1,769 @@
+/* Removed remote font import for privacy/offline safety */
+
+:root {
+  --bg-primary: #121212;
+  --bg-secondary: #1a1a1a;
+  --bg-input: #252525;
+  --bg-result: #000;
+  --border-color: #333;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --text-muted: #888;
+  --accent: #00bcd4;
+  --success: #4CAF50;
+  /* Tooltip Specifics defaulting to dark */
+  --tooltip-bg: #1a1a1a;
+  --tooltip-border: #00bcd4;
+  --tooltip-text: #fff;
+  --tooltip-hover: #00bcd4;
+  --tooltip-hover-text: #000;
+}
+
+.light-theme {
+  --bg-primary: #f5f5f5;
+  --bg-secondary: #ffffff;
+  --bg-input: #ffffff;
+  --bg-result: #eaeaea;
+  --border-color: #ddd;
+  --text-primary: #222222;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --accent: #0097a7;
+  --success: #2e7d32;
+  /* Tooltip Light overrides */
+  --tooltip-bg: #ffffff;
+  --tooltip-border: #0097a7;
+  --tooltip-text: #222222;
+  --tooltip-hover: #0097a7;
+  --tooltip-hover-text: #fff;
+}
+
+body {
+  width: 340px;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-secondary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ... existing code ... */
+
+/* Smart Tooltip - Dark Theme (Default) */
+.uc-tooltip {
+  background: #1a1a1a;
+  border: 1px solid #00bcd4;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  min-width: 140px;
+  animation: fadeIn 0.15s ease-out;
+}
+
+/* Smart Tooltip - Light Theme Override */
+.uc-tooltip.light-theme {
+  background: #ffffff;
+  border: 1px solid #0097a7;
+  color: #222222;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.uc-tooltip-opt {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.uc-tooltip-opt:hover {
+  background: #00bcd4;
+  color: #000;
+}
+
+.uc-tooltip.light-theme .uc-tooltip-opt:hover {
+  background: #0097a7;
+  color: #fff;
+}
+
+.uc-tooltip-opt span:first-child {
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.uc-tooltip-hint {
+  font-size: 10px;
+  opacity: 0.6;
+  background: rgba(128, 128, 128, 0.2);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.uc-tooltip-opt:hover .uc-tooltip-hint {
+  background: rgba(255, 255, 255, 0.3);
+  color: inherit;
+}
+
+.uc-container {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: var(--bg-secondary);
+}
+
+/* Header */
+.uc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.uc-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.uc-header-icons>div:hover {
+  color: var(--accent) !important;
+}
+
+.uc-title {
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Input/Select Common Styles */
+select,
+input {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+select:hover,
+input:hover {
+  border-color: var(--text-muted);
+}
+
+select:focus,
+input:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 188, 212, 0.2);
+}
+
+/* Category Select */
+#uc-category {
+  font-weight: 600;
+  color: var(--accent);
+  text-align-last: center;
+  letter-spacing: 0.5px;
+}
+
+/* Input Row */
+.uc-input-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+  display: block;
+}
+
+#uc-input {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: right;
+  color: var(--text-primary);
+}
+
+/* Units Row */
+.uc-row {
+  display: flex;
+  flex-direction: column;
+}
+
+.units-grid {
+  display: grid;
+  grid-template-columns: 1fr 24px 1fr;
+  align-items: center;
+  gap: 8px;
+}
+
+.uc-unit-select {
+  width: 100%;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.uc-arrow-icon {
+  display: flex;
+  justify-content: center;
+  color: var(--text-muted);
+}
+
+/* Result Box */
+.uc-result-box {
+  margin-top: 8px;
+  background: var(--bg-result);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 16px;
+  text-align: right;
+  position: relative;
+  overflow: hidden;
+}
+
+.uc-result-label {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+#uc-result {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--success);
+  word-break: break-all;
+  line-height: 1.2;
+}
+
+#uc-result-unit {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+  display: block;
+}
+
+/* Scrollbar styling */
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+select::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Chrome Number Spinner Hide */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Smart Tooltip */
+.uc-tooltip {
+  background: #1a1a1a;
+  border: 1px solid #00bcd4;
+  border-radius: 6px;
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: #fff;
+  min-width: 140px;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.uc-tooltip-opt {
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.uc-tooltip-opt:hover {
+  background: #00bcd4;
+  color: #000;
+}
+
+.uc-tooltip-opt span:first-child {
+  font-weight: 600;
+  flex-grow: 1;
+}
+
+.uc-tooltip-hint {
+  font-size: 10px;
+  opacity: 0.6;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 4px;
+  border-radius: 3px;
+}
+
+.uc-tooltip-opt:hover .uc-tooltip-hint {
+  background: rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Resistor Calculator Styles */
+#uc-resistor-container .uc-title {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.uc-icon-btn {
+  cursor: pointer;
+  color: var(--text-muted);
+  padding: 6px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.uc-icon-btn:hover {
+  background: var(--bg-input);
+  color: var(--accent);
+}
+
+.rc-mode-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-input);
+  padding: 8px 12px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.rc-mode-toggle-container:hover {
+  background: var(--bg-secondary);
+}
+
+.uc-band-toggle-row {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 8px;
+}
+
+.uc-band-btn {
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  flex: 1;
+}
+
+.uc-band-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.uc-resistor-visual {
+  height: 60px;
+  background: transparent;
+  /* Changed from #e0e0e0 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 15px 0;
+  overflow: visible;
+  /* Needed for wires sticking out */
+  /* Remove border-radius and box-shadow from here, move to .rc-body */
+}
+
+/* The actual tan capsule */
+.rc-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e0e0e0;
+  border-radius: 30px;
+  box-shadow: inset 0 -4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  /* Body above wires */
+}
+
+/* Light/Dark mode adjustment for body */
+body:not(.light-theme) .rc-body {
+  background: #d2b48c;
+}
+
+/* Wire leads - styled on container to be relative */
+.uc-resistor-visual::before,
+.uc-resistor-visual::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 4px;
+  background: #999;
+  z-index: 0;
+  /* Wires behind body (body is z=1? wait) */
+  /* If Wire is 0, Body is 1, Body covers Wire. 
+     But Wire sticks out.
+     If parent is transparent, 0 is fine.
+     The Body (child) with z=1 will cover the CENTER of the wire.
+     The sides of the wire will be visible. Perfect. */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.uc-resistor-visual::before {
+  left: -10px;
+}
+
+.uc-resistor-visual::after {
+  right: -10px;
+}
+
+.rc-band {
+  width: 12px;
+  height: 100%;
+  margin: 0 6px;
+  z-index: 1;
+}
+
+.rc-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.rc-select-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.rc-select-group label {
+  font-size: 10px;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.rc-select {
+  background-color: var(--bg-input);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  padding: 6px;
+  border-radius: 6px;
+  font-size: 12px;
+  appearance: none;
+  cursor: pointer;
+}
+
+.uc-row {
+  margin-bottom: 15px;
+}
+
+/* Reverse Calculator Result Styles */
+.rc-result-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.uc-resistor-visual {
+  position: relative;
+  /* Ensure we can position badge */
+  overflow: visible;
+  /* Allow badge to sit slightly outside if needed, or strictly inside */
+}
+
+.rc-band-badge {
+  position: absolute;
+  bottom: 2px;
+  right: 15px;
+  /* Inside the capsule curve */
+  background: var(--bg-input);
+  color: var(--text-muted);
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+  cursor: pointer;
+  /* Indicates clickable */
+  transition: all 0.2s;
+  user-select: none;
+}
+
+.rc-band-badge:hover {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Info Button */
+#info-btn {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: 2px solid var(--text-muted);
+  color: var(--text-muted);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+#info-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0, 188, 212, 0.1);
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  /* Black w/ opacity */
+  backdrop-filter: blur(2px);
+  animation: fadeIn 0.2s;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: var(--bg-secondary);
+  margin: 0;
+  padding: 30px;
+  padding-bottom: 40px;
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  width: 80%;
+  max-width: 500px;
+  max-height: 85vh;
+  overflow-y: auto;
+  color: var(--text-primary);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.close-modal {
+  color: var(--text-muted);
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: -10px;
+  transition: color 0.2s;
+}
+
+.close-modal:hover {
+  color: var(--accent);
+}
+
+.info-section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 15px;
+}
+
+.info-section:last-child {
+  border-bottom: none;
+}
+
+.info-section h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  color: var(--accent);
+}
+
+.info-section p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.privacy-box {
+  margin-top: 12px;
+  padding: 10px;
+  background: rgba(76, 175, 80, 0.1);
+  /* Green tint */
+  border: 2px solid var(--success);
+  border-radius: 6px;
+  /* Ensure it sits above clipping */
+  position: relative;
+  z-index: 2;
+}
+
+/* Light Mode Logic handled by vars, but specific overrides if needed */
+body.light-theme .privacy-box {
+  background: rgba(46, 125, 50, 0.1);
+}
+
+/* Override the info-section:last-child border-bottom: none rule */
+.info-section.privacy-box {
+  border-bottom: 2px solid var(--success) !important;
+}
+
+.privacy-box h3 {
+  color: var(--success);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- SMD Decoder Visuals --- */
+.smd-component {
+  width: 160px;
+  height: 70px;
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: background-color 0.3s;
+}
+
+/* Resistor variant */
+.smd-resistor {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+/* Capacitor variant */
+.smd-capacitor {
+  background-color: #8B5A2B;
+  /* Ceramic capacitor brown */
+  border: 1px solid #6d4c2a;
+}
+
+body.light-theme .smd-capacitor {
+  background-color: #cd853f;
+  /* Lighter tan for light mode */
+}
+
+/* Terminals (Silver ends) */
+.smd-terminal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20px;
+  background: linear-gradient(90deg, #999 0%, #eee 50%, #999 100%);
+  border-left: 1px solid #666;
+  border-right: 1px solid #666;
+  z-index: 1;
+}
+
+.smd-terminal.left {
+  left: 0;
+}
+
+.smd-terminal.right {
+  right: 0;
+}
+
+/* Text on Component */
+#smd-text-display {
+  color: rgba(255, 255, 255, 0.9);
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  z-index: 2;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Copy Button Hover */
+#smd-copy-btn:hover {
+  background-color: var(--bg-input);
+  color: var(--accent);
+}
+
+#smd-copy-btn:active {
+  transform: scale(0.95);
+}

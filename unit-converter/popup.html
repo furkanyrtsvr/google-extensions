@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit Converter</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="uc-container" id="uc-converter-container">
+        <div class="uc-header">
+            <span class="uc-title">Unit Converter</span>
+            <div class="uc-header-icons">
+                <div id="uc-theme-btn" title="Toggle Theme" style="cursor: pointer; color: #888; padding: 4px;">
+                    <svg id="theme-icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <path
+                            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
+                        </path>
+                    </svg>
+                    <svg id="theme-icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        style="display:none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </div>
+                <div id="uc-settings-btn" title="Settings" style="cursor: pointer; color: #888; padding: 4px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="uc-row">
+            <label class="uc-input-label">CATEGORY</label>
+            <div class="uc-select-wrapper">
+                <select id="uc-category"></select>
+                <div class="uc-select-arrow"></div>
+            </div>
+        </div>
+
+        <div class="uc-row">
+            <label class="uc-input-label">VALUE</label>
+            <input type="number" id="uc-input" placeholder="0" value="1">
+        </div>
+
+        <div class="uc-row">
+            <label class="uc-input-label">CONVERT</label>
+            <div class="units-grid">
+                <select id="uc-from" class="uc-unit-select"></select>
+                <div class="uc-arrow-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M7 16l-4-4 4-4"></path>
+                        <path d="M17 8l4 4-4 4"></path>
+                        <path d="M3 12h18"></path>
+                    </svg>
+                </div>
+                <select id="uc-to" class="uc-unit-select"></select>
+            </div>
+        </div>
+
+        <div class="uc-result-box">
+            <label>RESULT</label>
+            <div class="uc-result-value" id="uc-result">0</div>
+            <div class="uc-result-unit" id="uc-result-unit"></div>
+        </div>
+    </div>
+
+    <!-- Resistor Calculator Container (Hidden) -->
+    <div class="uc-container" id="uc-resistor-container" style="display: none;">
+        <div class="uc-header" style="justify-content: flex-start; gap: 10px; margin-bottom: 5px; align-items: center;">
+            <!-- Back Button -->
+            <div class="uc-icon-btn" id="rc-back-btn" title="Back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <span class="uc-title" style="font-size: 16px; color: var(--accent);">Resistor Calc</span>
+        </div>
+
+        <!-- Mode Toggle (Single Button Swap) -->
+        <div class="rc-mode-toggle-container"
+            style="display: flex; align-items: center; justify-content: space-between; background: var(--bg-input); padding: 8px 12px; border-radius: 8px; margin-bottom: 15px; cursor: pointer; transition: background 0.2s;"
+            id="rc-mode-toggle-btn">
+            <span id="rc-mode-label" style="font-size:13px; font-weight:600; color:var(--text-primary);">Colors →
+                Value</span>
+            <div class="uc-arrow-icon" style="padding: 0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L13 16M17 20L21 16"></path>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Mode 1: Colors -> Value -->
+        <div id="view-color-to-val">
+            <div class="uc-band-toggle-row" style="margin-bottom: 12px; display:flex; gap:8px;">
+                <button class="uc-band-btn active" data-bands="4" style="flex:1;">4 Bands</button>
+                <button class="uc-band-btn" data-bands="5" style="flex:1;">5 Bands</button>
+                <button class="uc-band-btn" data-bands="6" style="flex:1;">6 Bands</button>
+            </div>
+
+            <div class="uc-resistor-visual" id="rc-visual-preview">
+                <div class="rc-body"></div>
+                <div class="rc-band band-1" style="z-index: 2; background-color: #8B4513;"></div>
+                <div class="rc-band band-2" style="background-color: #000000;"></div>
+                <div class="rc-band band-3" style="background-color: #FF0000;"></div> <!-- Multiplier or 3rd digit -->
+                <div class="rc-band band-4" style="background-color: #FFD700;"></div> <!-- Tolerance or Multiplier -->
+                <div class="rc-band band-5" style="display:none; background-color: #8B4513;"></div>
+                <!-- Tolerance (5-band) -->
+                <div class="rc-band band-6" style="display:none; background-color: #8B4513;"></div>
+                <!-- PPM (6-band) -->
+            </div>
+
+            <div class="rc-controls"
+                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px;">
+                <!-- Filled by JS -->
+                <div class="rc-select-group"><label>Band 1</label><select id="rc-band1" class="rc-select"></select>
+                </div>
+                <div class="rc-select-group"><label>Band 2</label><select id="rc-band2" class="rc-select"></select>
+                </div>
+                <div class="rc-select-group" id="grp-band3" style="display:none"><label>Band 3</label><select
+                        id="rc-band3" class="rc-select"></select></div>
+                <div class="rc-select-group"><label>Multiplier</label><select id="rc-mul" class="rc-select"></select>
+                </div>
+                <div class="rc-select-group"><label>Tolerance</label><select id="rc-tol" class="rc-select"></select>
+                </div>
+                <div class="rc-select-group" id="grp-ppm" style="display:none"><label>PPM</label><select id="rc-ppm"
+                        class="rc-select"></select>
+                </div>
+            </div>
+
+            <div class="uc-result-box">
+                <label>RESISTANCE</label>
+                <div class="uc-result-value" id="rc-result-val">1 kΩ</div>
+                <div class="uc-result-unit" id="rc-result-tol">±5%</div>
+            </div>
+        </div>
+
+        <!-- Mode 2: Value -> Colors -->
+        <div id="view-val-to-color" style="display: none;">
+            <div class="uc-row">
+                <label class="uc-input-label">RESISTANCE</label>
+                <input type="text" id="rc-input-val" placeholder="e.g. 4.7k, 100" />
+            </div>
+            <div class="uc-row">
+                <label class="uc-input-label">TOLERANCE</label>
+                <select id="rc-input-tol" class="uc-unit-select" style="width: 100%;">
+                    <option value="Brown">±1% (Brown)</option>
+                    <option value="Red">±2% (Red)</option>
+                    <option value="Gold" selected>±5% (Gold)</option>
+                    <option value="Silver">±10% (Silver)</option>
+                </select>
+            </div>
+
+            <div id="rc-calc-preview" style="margin-top: 20px;">
+                <!-- Result bands go here -->
+            </div>
+            <div id="rc-text-result" style="text-align: center; margin-top: 10px; font-size: 13px; opacity: 0.8;"></div>
+        </div>
+
+    </div>
+
+    <!-- Download Time Calculator Container (Hidden) -->
+    <div class="uc-container" id="uc-download-container" style="display: none;">
+        <div class="uc-header" style="justify-content: flex-start; gap: 10px; margin-bottom: 5px; align-items: center;">
+            <!-- Back Button -->
+            <div class="uc-icon-btn" id="dl-back-btn" title="Back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <span class="uc-title" style="font-size: 16px; color: var(--accent);">Download Calc</span>
+        </div>
+
+        <!-- Section 1: Speed Input -->
+        <div class="uc-row">
+            <label class="uc-input-label">INTERNET SPEED</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="dl-speed-input" placeholder="e.g. 100" style="flex: 1;">
+                <select id="dl-speed-unit" class="uc-unit-select" style="width: 80px;">
+                    <option value="Mbps" selected>Mbps</option>
+                    <option value="Gbps">Gbps</option>
+                    <option value="Kbps">Kbps</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Info Box: Rate Conversion -->
+        <div
+            style="background: var(--bg-input); padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+            <div style="font-size: 12px; opacity: 0.7; margin-bottom: 4px;">ACTUAL DOWNLOAD RATE</div>
+            <div id="dl-rate-display" style="font-size: 16px; font-weight: 600; color: var(--text-primary);">0 MB/s
+            </div>
+            <div id="dl-rate-detail" style="font-size: 11px; opacity: 0.5; margin-top: 4px;">(0 Mbps / 8)</div>
+        </div>
+
+        <!-- Section 2: File Size -->
+        <div class="uc-row">
+            <label class="uc-input-label">FILE SIZE</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="dl-size-input" placeholder="e.g. 50" style="flex: 1;">
+                <select id="dl-size-unit" class="uc-unit-select" style="width: 80px;">
+                    <option value="GB" selected>GB</option>
+                    <option value="MB">MB</option>
+                    <option value="TB">TB</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="uc-result-box">
+            <label>ESTIMATED TIME</label>
+            <div class="uc-result-value" id="dl-result-time" style="font-size: 18px;">0s</div>
+        </div>
+    </div>
+
+    <!-- SMD Code Decoder Container (Hidden) -->
+    <div class="uc-container" id="uc-smd-container" style="display: none;">
+        <div class="uc-header" style="justify-content: flex-start; gap: 10px; margin-bottom: 5px; align-items: center;">
+            <!-- Back Button -->
+            <div class="uc-icon-btn" id="smd-back-btn" title="Back">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
+            </div>
+            <span class="uc-title" style="font-size: 16px; color: var(--accent);">SMD Decoder</span>
+        </div>
+
+        <div id="view-smd-code">
+            <!-- Type Toggle -->
+            <div class="uc-band-toggle-row" style="margin-bottom: 15px; display:flex; gap:8px;">
+                <button class="uc-band-btn active" id="smd-type-res" style="flex:1;">Resistor</button>
+                <button class="uc-band-btn" id="smd-type-cap" style="flex:1;">Capacitor</button>
+            </div>
+
+            <!-- Visual Preview -->
+            <div class="uc-resistor-visual" id="smd-visual-preview"
+                style="display: flex; justify-content: center; align-items: center; background: transparent; border: none; box-shadow: none;">
+                <!-- Component Body -->
+                <div id="smd-body" class="smd-component smd-resistor">
+                    <span id="smd-text-display">CODE</span>
+                    <div class="smd-terminal left"></div>
+                    <div class="smd-terminal right"></div>
+                </div>
+            </div>
+
+            <div class="uc-row">
+                <label class="uc-input-label">MARKING CODE</label>
+                <input type="text" id="smd-input-code" placeholder="e.g. 102, 4R7, 01C"
+                    style="font-family: 'Consolas', monospace; text-transform: uppercase;">
+            </div>
+
+            <div class="uc-result-box" style="margin-top: 10px;">
+                <label>DECODED VALUE</label>
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                    <div class="uc-result-value" id="smd-result-val">-</div>
+                    <!-- Copy Button -->
+                    <div class="uc-icon-btn" id="smd-copy-btn" title="Copy Value"
+                        style="width: 24px; height: 24px; padding: 2px;">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="uc-result-unit" id="smd-result-desc"
+                    style="font-size: 11px; margin-top: 4px; opacity: 0.7;">Enter code...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
