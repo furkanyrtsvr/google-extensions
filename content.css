@@ -1,0 +1,194 @@
+/* content.css - Styling for the injected UI and Project Management */
+.digikey-bom-container {
+    position: fixed;
+    bottom: 20px;
+    right: 45px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    padding: 12px;
+    z-index: 9999;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    width: 290px;
+    font-size: 13px;
+    transition: width 0.3s, padding 0.3s, bottom 0.3s;
+    /* Smooth transition */
+}
+
+/* Minimized State */
+.digikey-bom-container.minimized {
+    width: 240px;
+    padding-bottom: 5px;
+}
+
+.digikey-bom-container.minimized #dk-ui-body {
+    display: none;
+}
+
+.digikey-bom-header {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid #cc0000;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* When minimized, remove the border-bottom from header for cleaner look */
+.digikey-bom-container.minimized .digikey-bom-header {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+.digikey-bom-section {
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.digikey-bom-label {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.digikey-bom-input,
+.digikey-bom-select {
+    padding: 6px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+    /* padding dahil genişlik */
+}
+
+/* Project Selection Row */
+.project-row {
+    display: flex;
+    gap: 5px;
+}
+
+.btn-small {
+    padding: 0 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.digikey-bom-price-display {
+    background-color: #f9f9f9;
+    padding: 8px;
+    text-align: right;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.price-unit {
+    font-size: 11px;
+    color: #666;
+    font-weight: normal;
+}
+
+.digikey-bom-btn {
+    background-color: #cc0000;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    transition: background 0.2s;
+}
+
+.digikey-bom-btn:hover {
+    background-color: #a30000;
+}
+
+.digikey-bom-status {
+    margin-top: 5px;
+    font-size: 12px;
+    color: green;
+    text-align: center;
+    display: none;
+}
+/* --- DARK MODE SUPPORT --- */
+/* Target DigiKey's theme attribute on html or class on body */
+[data-theme="dkdk"] .digikey-bom-container,
+.dkdk .digikey-bom-container {
+    background: #1a1a1a;
+    border-color: #444;
+    color: #e0e0e0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dkdk"] #dk-qty-section.warning,
+.dkdk #dk-qty-section.warning {
+    background: #2b2510;
+    border-color: #ffc107;
+}
+
+[data-theme="dkdk"] .digikey-bom-btn.update-btn,
+.dkdk .digikey-bom-btn.update-btn {
+    background-color: #ffc107 !important;
+    color: #000 !important;
+}
+
+[data-theme="dkdk"] .digikey-bom-header,
+.dkdk .digikey-bom-header {
+    background: #252525;
+    color: #fff;
+    border-bottom-color: #cc0000;
+}
+
+[data-theme="dkdk"] .digikey-bom-section,
+.dkdk .digikey-bom-section {
+    border-bottom-color: #333;
+}
+
+[data-theme="dkdk"] .digikey-bom-label,
+.dkdk .digikey-bom-label {
+    color: #aaa;
+}
+
+[data-theme="dkdk"] .digikey-bom-input,
+[data-theme="dkdk"] .digikey-bom-select,
+.dkdk .digikey-bom-input,
+.dkdk .digikey-bom-select {
+    background: #2a2a2a;
+    border-color: #444;
+    color: #fff;
+}
+
+[data-theme="dkdk"] .btn-small,
+.dkdk .btn-small {
+    background: #333;
+    border-color: #444;
+    color: #fff;
+}
+
+[data-theme="dkdk"] .btn-small:hover,
+.dkdk .btn-small:hover {
+    background: #444;
+}
+
+[data-theme="dkdk"] .digikey-bom-price-display,
+.dkdk .digikey-bom-price-display {
+    background-color: #252525;
+    color: #eee;
+}
+
+[data-theme="dkdk"] .price-unit,
+.dkdk .price-unit {
+    color: #999;
+}
+
+[data-theme="dkdk"] .digikey-bom-status,
+.dkdk .digikey-bom-status {
+    color: #4cd137;
+}

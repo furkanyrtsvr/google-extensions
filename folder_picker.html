@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Set File Location</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 100%;
+            max-width: 380px;
+        }
+
+        h2 {
+            color: #333;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+        }
+
+        p {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background: #cc0000;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 14px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #aa0000;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 13px;
+        }
+
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Set File Location</h2>
+        <p>Choose where to save your project files.</p>
+        <button class="btn" id="selectBtn">Select Folder</button>
+        <div id="status" class="status"></div>
+    </div>
+    <script src="folder_picker.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icon_v2.png",
+         "16": "icon_v2.png",
+         "48": "icon_v2.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "BOM List Helper"
+   },
+   "background": {
+      "service_worker": "background.js"
+   },
+   "content_scripts": [ {
+      "css": [ "content.css" ],
+      "js": [ "content.js" ],
+      "matches": [ "*://*.digikey.com/*", "*://*.digikey.tr/*" ],
+      "run_at": "document_idle"
+   } ],
+   "content_security_policy": {
+      "extension_pages": "script-src 'self'; object-src 'self'"
+   },
+   "description": "Create custom BOM lists directly from DigiKey product pages.",
+   "host_permissions": [ "https://*.digikey.com/*", "https://*.digikey.tr/*", "https://mm.digikey.com/*", "*://*.digikey.com/*", "*://*.digikey.tr/*", "\u003Call_urls>" ],
+   "icons": {
+      "128": "icon_v2.png",
+      "16": "icon_v2.png",
+      "48": "icon_v2.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwayXvbpCfzZIAdCyOpmxdzKL2rSdljWUbhleIygLfkHv523WGfiYivQpEouO3eehBX0HaL6KjH/pOgMdx1PED8U/kfulKuyR9MSCLcOZJ0gvB0tKlFFFx+qaZahjGr7Yj3EVXA+X53QgjfW+DE9ANCGVAB1yLdAvMA0WxBqt4B6y0zQ3o9K9WrgQF61QA61BTRTItx1aFdTZ310t0euD9C17PAyrvL5S5qc1ayqFJUorGPXKAKTKGpZnwhVjQfN5KDSi0dPYZSMt37s/c8hcgtQgR/0wFKVXaBqflwtqbTJ5jAx65gsDjiG5UQ3CUpieELwFB1NzH9NiAqXrv3b+gwIDAQAB",
+   "manifest_version": 3,
+   "name": "BOM List Helper for DigiKey",
+   "permissions": [ "storage", "activeTab", "downloads", "scripting" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.0",
+   "web_accessible_resources": [ {
+      "matches": [ "*://*.digikey.com/*", "*://*.digikey.tr/*" ],
+      "resources": [ "icon_v2.png" ]
+   } ]
+}

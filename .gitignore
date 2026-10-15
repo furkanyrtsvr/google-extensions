@@ -1,0 +1,8 @@
+_metadata/
+.release/
+node_modules/
+*.pem
+*.crx
+*.log
+.env*
+__pycache__/
