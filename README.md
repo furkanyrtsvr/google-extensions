@@ -2,7 +2,9 @@
 
 PCB tasarımı sırasında sık kullanılan iz, via, açıklık ve empedans hesaplarını tek bir çevrimdışı araçta toplamak için hazırlanmış Chrome eklentisi.
 
-Kaynak sürümü: **1.0.0** · Chrome Manifest V3
+İlk aktarımın kaynak tabanı: **1.0.0** · Chrome Manifest V3
+
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/pcb-guard/releases/latest)
 
 ## Özellikler
 
