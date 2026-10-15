@@ -11,8 +11,8 @@ cd pcb-guard
 node scripts/check-extension.mjs
 node scripts/run-tests.mjs
 cd ..
-python -m unittest discover -s tests -v
-python scripts/extensions.py package pcb-guard
+python -m unittest discover -s maintenance/tests -v
+python maintenance/scripts/extensions.py package pcb-guard
 ```
 
 Diğer üç eklentinin kendi klasöründe `node scripts/check-extension.mjs` çalışır. PCB Guard ayrıca mevcut 38 hesaplama testini çalıştırır. Bu kontroller gerçek Chrome extension API’lerinin ve harici sitelerin tümünü kapsamaz.
@@ -27,7 +27,7 @@ Her eklenti kendi `<klasör>-vMAJOR.MINOR.PATCH` etiketlerine göre ilerler; ba�
 
 Actions → **Verify and release extensions** → **Run workflow** altında `auto` normal değişiklik tespitidir. Belirli eklentiyi seçmek, çalışma farkı olmasa bile yalnızca onun bir sonraki sürümünü zorla çıkarır. Yarıda kalan Release/ZIP yayını `auto` yeniden çalıştırıldığında aynı etiketten tamamlanır. ZIP indirilerek SHA-256 karşılaştırmasıyla yükleme doğrulanır.
 
-Actions sürüm işinin `contents: write` izni vardır. Depo koruma kuralları bot push’una izin vermelidir; kurallar aşılmaz. Eşzamanlı yayın işleri sıraya alınır. Ortak sürüm betiğini değiştirdiğinizde kökteki testleri de çalıştırın. Çalışma kodunu etkileyen bir ortak değişiklikte ilgili eklentilerin çalışma dosyalarını güncelleyin veya gerekli eklentiler için elle yayın başlatın.
+Actions sürüm işinin `contents: write` izni vardır. Depo koruma kuralları bot push’una izin vermelidir; kurallar aşılmaz. Eşzamanlı yayın işleri sıraya alınır. Ortak sürüm betiğini değiştirdiğinizde `maintenance/tests/` altındaki testleri de çalıştırın. Çalışma kodunu etkileyen bir ortak değişiklikte ilgili eklentilerin çalışma dosyalarını güncelleyin veya gerekli eklentiler için elle yayın başlatın.
 
 ## Geçmiş yayınlar
 

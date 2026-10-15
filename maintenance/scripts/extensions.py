@@ -10,7 +10,7 @@ import urllib.error
 import urllib.request
 import zipfile
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 SLUGS = ('bom-list-helper-digikey', 'pcb-guard', 'unit-converter', 'viewer-helper-github')
 
 def git(*args):

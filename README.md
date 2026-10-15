@@ -38,6 +38,6 @@ Her eklentinin kendi README’sinde dört görsel ve ayrıntılı kullanım adı
 
 Örneğin yalnızca PCB Guard’ın çalışma kodu değişirse `pcb-guard-v1.0.2` yayımlanır; diğer üç eklentinin sürümü korunur. README ve tanıtım görseli güncellemeleri sürüm numarasını artırmaz. Kurulum ZIP’leri yalnızca ilgili eklentinin çalışma dosyalarını içerir.
 
-[Geliştirme, kontroller ve otomatik yayın rehberi](docs/SURUMLEME.md) · [Taşıma kaydı](docs/TASIMA.md)
+[Geliştirme, kontroller ve otomatik yayın rehberi](maintenance/docs/SURUMLEME.md) · [Taşıma kaydı](maintenance/docs/TASIMA.md)
 
 Bu depo Chrome Web Store’a otomatik gönderim yapmaz. Eklentilerin izinleri, veri akışı ve mevcut lisans bildirimleri kendi README’lerinde açıklanmıştır.
