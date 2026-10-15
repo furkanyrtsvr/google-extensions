@@ -1,0 +1,155 @@
+/* Git-PCB Previewer Styles */
+
+.git-pcb-preview-btn {
+    margin-left: 8px;
+}
+
+/* Modal Overlay */
+.git-pcb-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    /* Darker backdrop */
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(4px);
+    display: none;
+}
+
+.git-pcb-modal-overlay.active {
+    display: flex;
+}
+
+/* Modal Content */
+.git-pcb-modal-content {
+    width: 90%;
+    height: 90%;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+}
+
+[data-color-mode="dark"] .git-pcb-modal-content,
+body.theme-dark .git-pcb-modal-content {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    color: #c9d1d9;
+}
+
+/* Modal Header */
+.git-pcb-modal-header {
+    padding: 12px 20px;
+    border-bottom: 1px solid #d0d7de;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f6f8fa;
+}
+
+[data-color-mode="dark"] .git-pcb-modal-header {
+    background: #161b22;
+    border-bottom-color: #30363d;
+}
+
+.git-pcb-modal-title {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.git-pcb-close-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    line-height: 1;
+    color: #57606a;
+    padding: 0 4px;
+}
+
+[data-color-mode="dark"] .git-pcb-close-btn {
+    color: #8b949e;
+}
+
+/* Modal Body / Viewer Area */
+.git-pcb-viewer-container {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    background: #0d1117;
+    /* Always dark for PCB visibility */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Controls Toolbar */
+.git-pcb-controls {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    padding: 8px 16px;
+    border-radius: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: flex;
+    gap: 12px;
+    z-index: 1000;
+}
+
+[data-color-mode="dark"] .git-pcb-controls {
+    background: rgba(22, 27, 34, 0.95);
+    border: 1px solid #30363d;
+}
+
+.git-pcb-control-btn {
+    border: 1px solid #d0d7de;
+    background: #ffffff;
+    color: #24292f;
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+}
+
+[data-color-mode="dark"] .git-pcb-control-btn {
+    background: #21262d;
+    border-color: #363b42;
+    color: #c9d1d9;
+}
+
+.git-pcb-control-btn:hover {
+    background: #f3f4f6;
+}
+
+[data-color-mode="dark"] .git-pcb-control-btn:hover {
+    background: #30363d;
+}
+
+/* Loading Spinner */
+.git-pcb-loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: #8b949e;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    color: white;
+}
