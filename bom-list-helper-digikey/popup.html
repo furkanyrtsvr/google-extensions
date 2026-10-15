@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BOM List Helper</title>
+    <meta name="referrer" content="no-referrer">
+    <style>
+        body {
+            width: 700px;
+            padding: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #fdfdfd;
+        }
+
+        /* Header & General */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .header h2 {
+            margin: 0;
+            color: #cc0000;
+            font-size: 18px;
+        }
+
+        .project-control {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        select {
+            padding: 6px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 13px;
+        }
+
+        /* Tabs buttons */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .nav-btn.active {
+            color: #cc0000;
+            border-bottom-color: #cc0000;
+        }
+
+        /* Content Areas */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Table */
+        .table-container {
+            max-height: 380px;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+        }
+
+        th {
+            background-color: #f8f8f8;
+            padding: 10px;
+            text-align: left;
+            position: sticky;
+            top: 0;
+            border-bottom: 2px solid #ddd;
+            font-weight: 600;
+            color: #444;
+        }
+
+        td {
+            border-bottom: 1px solid #f2f2f2;
+            padding: 8px;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #fafafa;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Drag & Drop Config */
+        .dnd-container {
+            display: flex;
+            gap: 20px;
+            height: 400px;
+        }
+
+        .dnd-column {
+            flex: 1;
+            border: 1px solid #ddd;
+            background: #fafafa;
+            border-radius: 6px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dnd-column h3 {
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #555;
+            text-align: center;
+        }
+
+        .dnd-list {
+            flex: 1;
+            overflow-y: auto;
+            background: white;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            padding: 5px;
+            min-height: 50px;
+        }
+
+        .dnd-item {
+            padding: 8px;
+            margin-bottom: 5px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: grab;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: box-shadow 0.2s;
+        }
+
+        .dnd-item:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .dnd-item.dragging {
+            opacity: 0.5;
+            border: 1px dashed #999;
+        }
+
+        /* Buttons */
+        .btn {
+            cursor: pointer;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 12px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background-color: #cc0000;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: white;
+            border: 1px solid #dc3545;
+            color: #dc3545;
+            padding: 4px 8px;
+            font-size: 11px;
+        }
+
+        .bottom-bar {
+            margin-top: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-cost {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #aaa;
+        }
+
+        /* Custom Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            width: 250px;
+        }
+
+        .modal-buttons {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* DARK MODE POPUP */
+        body.dark-mode {
+            background: #121212;
+            color: #e0e0e0;
+        }
+
+        body.dark-mode .header {
+            border-bottom-color: #333;
+        }
+
+        body.dark-mode h2 {
+            color: #ff4d4d;
+        }
+
+        body.dark-mode select,
+        body.dark-mode input {
+            background: #1e1e1e;
+            border-color: #444;
+            color: #fff;
+        }
+
+        body.dark-mode .table-container {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        body.dark-mode table {
+            background: #1a1a1a;
+        }
+
+        body.dark-mode th {
+            background-color: #252525;
+            border-bottom-color: #444;
+            color: #fff;
+        }
+
+        body.dark-mode td {
+            border-bottom-color: #2a2a2a;
+            color: #ccc;
+        }
+
+        body.dark-mode tr:nth-child(even) {
+            background-color: #1e1e1e;
+        }
+
+        body.dark-mode tr:hover {
+            background-color: #2a2a2a;
+        }
+
+        body.dark-mode .dnd-column {
+            background: #1a1a1a;
+            border-color: #333;
+        }
+
+        body.dark-mode .dnd-list {
+            background: #252525;
+            border-color: #444;
+        }
+
+        body.dark-mode .dnd-item {
+            background: #333;
+            border-color: #444;
+            color: #eee;
+        }
+
+        body.dark-mode .nav-btn {
+            color: #888;
+        }
+
+        body.dark-mode .nav-btn.active {
+            color: #ff4d4d;
+            border-bottom-color: #ff4d4d;
+        }
+
+        body.dark-mode .total-cost {
+            color: #fff;
+        }
+
+        body.dark-mode hr {
+            border-top-color: #333;
+        }
+
+        body.dark-mode .modal-content {
+            background: #252525;
+            color: #fff;
+        }
+
+        body.dark-mode .modal-content h3 {
+            color: #fff;
+        }
+
+        /* Settings Panels & Buttons in Dark Mode */
+        body.dark-mode .settings-group {
+            background: #1a1a1a !important;
+            border-color: #333 !important;
+        }
+
+        body.dark-mode .settings-group h5,
+        body.dark-mode .settings-group span {
+            color: #fff !important;
+        }
+
+        body.dark-mode .settings-group small,
+        body.dark-mode .settings-group i {
+            color: #aaa !important;
+        }
+
+        body.dark-mode .settings-group label {
+            color: #ddd !important;
+        }
+
+        /* Backup Buttons Dark Mode Overrides */
+        body.dark-mode #btn-backup-all {
+            background: #1e3a5f !important;
+            border-color: #2c5282 !important;
+            color: #bee3f8 !important;
+        }
+
+        body.dark-mode #btn-export-project {
+            background: #1c4532 !important;
+            border-color: #276749 !important;
+            color: #c6f6d5 !important;
+        }
+
+        body.dark-mode #btn-restore-backup {
+            background: #2d3748 !important;
+            border-color: #4a5568 !important;
+            color: #edf2f7 !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <img src="icon_v2.png" width="32">
+            <h2>BOM List Helper</h2>
+        </div>
+
+        <div class="project-controls">
+            <select id="project-select" class="form-select"></select>
+            <button id="btn-delete-project" class="btn btn-danger">Delete</button>
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <button class="nav-btn active" data-tab="tab-bom">BOM List</button>
+        <button class="nav-btn" data-tab="tab-settings">Column Settings</button>
+    </div>
+
+    <!-- TAB: BOM LIST -->
+    <div id="tab-bom" class="tab-content active">
+        <div class="table-container">
+            <table id="bom-table">
+                <thead></thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div class="bottom-bar">
+            <div>
+                <button id="btn-export" class="btn btn-success">Export to Excel</button>
+                <button id="btn-clear" class="btn btn-danger" style="margin-left:5px;">Clear List</button>
+            </div>
+            <div class="total-cost">Total: <span id="total-cost">$0.00</span></div>
+        </div>
+    </div>
+
+    <!-- TAB: SETTINGS (DnD) -->
+    <div id="tab-settings" class="tab-content">
+        <div style="margin-bottom:10px; font-size:12px; color:#666;">
+            Drag columns from "Hidden" to "Visible" to customize your table and Excel export. Drag items within
+            "Visible"
+            to reorder them.
+        </div>
+        <div class="dnd-container">
+            <div class="dnd-column">
+                <h3>Hidden Columns</h3>
+                <div id="hidden-list" class="dnd-list"></div>
+            </div>
+            <div class="dnd-column" style="border-color:#cc0000;">
+                <h3>Visible Columns (Export Order)</h3>
+                <div id="visible-list" class="dnd-list"></div>
+            </div>
+        </div>
+        <div style="margin-top:15px; text-align:right;">
+            <button id="btn-save-cols" class="btn btn-primary">Save Column Settings</button>
+        </div>
+
+        <hr style="margin:20px 0; border:none; border-top:1px solid #ddd;">
+
+        <h4 style="margin-bottom:10px;">Export Settings</h4>
+        <div style="margin-bottom:15px;">
+            <label style="font-size:13px; display:block; margin-bottom:5px;">Subfolder Path (inside Downloads):</label>
+            <input type="text" id="input-subfolder" placeholder="DigiKey_Backups"
+                style="width:100%; padding:8px; border:1px solid #ccc; border-radius:4px; font-size:13px; box-sizing:border-box;">
+            <small style="color:#888;">Files save to: Downloads/[YourPath]/[Project]/</small>
+        </div>
+
+        <div class="settings-group"
+            style="background:#f9f9f9; padding:10px; border-radius:6px; margin-bottom:15px; border:1px solid #eee;">
+            <h5 style="margin:0 0 10px 0; color:#333;">Automatic Downloads</h5>
+
+            <div style="margin-bottom:8px;">
+                <label style="font-size:13px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <input type="checkbox" id="chk-auto-update" style="width:16px; height:16px;">
+                    <span>Update Excel automatically</span>
+                </label>
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <label style="font-size:13px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <input type="checkbox" id="chk-dl-datasheets" style="width:16px; height:16px;">
+                    <span>Download Datasheets automatically</span>
+                </label>
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <label style="font-size:13px; display:flex; align-items:center; gap:8px; cursor:pointer;">
+                    <input type="checkbox" id="chk-dl-images" style="width:16px; height:16px;">
+                    <span>Download Images automatically</span>
+                </label>
+            </div>
+
+            <div style="margin-bottom: 15px; border-top: 1px solid #eee; padding-top: 10px;">
+                <label
+                    style="font-size:13px; display:flex; align-items:center; gap:8px; cursor:pointer; font-weight: 600;">
+                    <input type="checkbox" id="chk-auto-zoom" style="width:16px; height:16px;">
+                    <span>Enable Custom Page Zoom</span>
+                </label>
+                <div id="zoom-controls"
+                    style="margin-top: 8px; margin-left: 24px; display: none; align-items: center; gap: 8px;">
+                    <span style="font-size: 12px; color: #555;">Zoom Level (%):</span>
+                    <input type="number" id="input-zoom-level" value="90" min="50" max="200" step="5"
+                        style="width: 60px; padding: 4px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                <small style="color:#888; display:block; margin-top:5px; margin-left: 24px; line-height: 1.3;">
+                    <i>Note: When enabled, the extension will automatically set the page zoom to your preferred level
+                        whenever you browse DigiKey.</i>
+                </small>
+            </div>
+
+
+            <div style="font-size:11px; color:#666; border-top:1px solid #ddd; padding-top:8px; margin-top:8px;">
+                <strong>Suggestion:</strong> If you prefer not to select a location for each file manually, you can
+                disable the <strong>'Ask where to save each file before downloading'</strong> setting.
+                <a href="#" id="link-browser-settings"
+                    style="color:#0066cc; text-decoration:none; display:flex; align-items:center; margin-top:4px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        style="margin-right:4px;">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path
+                            d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
+                        </path>
+                    </svg>
+                    Click here to configure Chrome Settings
+                </a>
+            </div>
+        </div>
+
+        <!-- Backup/Restore Section -->
+        <div style="border-top: 1px solid #eee; padding-top: 12px; margin-top: 12px;">
+            <label style="font-weight:600; color:#333; display:block; margin-bottom:8px;">Backup & Restore</label>
+
+            <div style="display:flex; gap:8px; margin-bottom:8px;">
+                <button id="btn-backup-all" class="btn"
+                    style="flex:1; background:#f0f7ff; border:1px solid #cce5ff; color:#0056b3; padding:8px; border-radius:6px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                        <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                        <polyline points="7 3 7 8 15 8"></polyline>
+                    </svg>
+                    Backup All
+                </button>
+                <button id="btn-export-project" class="btn"
+                    style="flex:1; background:#f0fdf4; border:1px solid #dcfce7; color:#166534; padding:8px; border-radius:6px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    Export Project
+                </button>
+            </div>
+
+            <div style="display:flex; gap:8px;">
+                <input type="file" id="restore-file-input" accept=".json" style="display:none;">
+                <button id="btn-restore-backup" class="btn"
+                    style="flex:1; background:#fafafa; border:1px solid #e5e5e5; color:#555; padding:8px; border-radius:6px; cursor:pointer; font-size:12px; display:flex; align-items:center; justify-content:center; gap:6px;">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                    Import / Restore
+                </button>
+            </div>
+            <small style="color:#999; display:block; margin-top:4px;">Supports Global Backup & Single Project
+                JSON</small>
+        </div>
+
+        <button id="btn-save-export" class="btn btn-primary" style="width:100%; margin-top:12px;">Save Settings</button>
+
+        <!-- Privacy Disclaimer -->
+        <div
+            style="margin-top:15px; border-top:1px solid #eee; padding-top:10px; display:flex; flex-direction:column; align-items:center;">
+            <div id="privacy-toggle"
+                style="display:flex; align-items:center; color:#555; cursor:pointer; font-size:12px; gap:6px; font-weight:500;">
+                <!-- Solid Info Icon -->
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="color:#666;">
+                    <path
+                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
+                </svg>
+                <span>Legal Disclaimer & Privacy Policy</span>
+            </div>
+
+            <div id="privacy-content"
+                style="display:none; background:#f8f9fa; padding:12px; border-radius:6px; margin-top:8px; font-size:11px; color:#444; line-height:1.5; border:1px solid #ddd; text-align:justify;">
+                <strong style="display:block; margin-bottom:4px;">Legal Notice:</strong>
+                This extension (DigiKey BOM Helper) operates strictly as a client-side tool. All sensitive data,
+                including project lists, BOM details, and settings, are stored <strong>exclusively on your local
+                    machine's browser storage (Local Storage)</strong>.<br><br>
+
+                No data is ever transmitted to, stored on, or shared with the developer, DigiKey, or any third-party
+                servers. You maintain specific and sole control over your data security and backups.<br><br>
+
+                <strong>Important:</strong> Uninstalling this extension or clearing browser data will permanently erase
+                strictly local records. It is strongly recommended to regularly use the "Backup" feature to save your
+                <code>projects_backup.json</code> file to a secure location.
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Notification -->
+    <div id="toast-notification"
+        style="display:none; position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:white; color:#333; padding:10px 20px; border-radius:30px; box-shadow:0 4px 15px rgba(0,0,0,0.2); font-size:13px; font-weight:500; z-index:9999; align-items:center; gap:8px;">
+        <span style="color:green; font-size:16px;">✓</span>
+        <span id="toast-message">Settings Saved</span>
+    </div>
+
+    <!-- Edit Quantity Modal -->
+    <div id="edit-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color:#333;">Edit Quantity</h3>
+            <input type="number" id="edit-qty-input"
+                style="padding:8px; width:80%; margin:10px 0; border:1px solid #ccc; border-radius:4px;" min="1">
+            <div class="modal-buttons">
+                <button id="modal-btn-save-edit" class="btn btn-success">Save</button>
+                <button id="modal-btn-cancel-edit" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3 style="margin-top:0; color:#333;">Delete Item?</h3>
+            <p style="color:#666; font-size:13px;">Are you sure you want to remove this item from the list?</p>
+            <div class="modal-buttons">
+                <button id="modal-btn-yes" class="btn btn-danger">Delete</button>
+                <button id="modal-btn-no" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="exceljs.min.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>
