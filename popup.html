@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PCB Guard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <img src="icons/icon48.png" alt="PCB Guard" class="logo" width="24" height="24">
+                <h1>PCB Guard</h1>
+            </div>
+            <div class="header-right">
+                <button class="lang-toggle" id="lang-toggle" title="EN/TR">TR</button>
+                <button class="lang-toggle" id="unit-toggle" title="MM/MIL" style="margin-left:4px;">MM</button>
+                <button class="theme-toggle" id="theme-toggle" title="Tema">
+                    <svg class="icon-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor"
+                            stroke-width="2" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Tab Navigation -->
+        <nav class="tabs">
+            <button class="tab active" data-tab="trace">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <rect x="2" y="8" width="16" height="4" rx="1" fill="currentColor" />
+                </svg>
+                <span data-tr="Hat" data-en="Trace">Hat</span>
+            </button>
+            <button class="tab" data-tab="via">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    <circle cx="10" cy="10" r="2.5" fill="currentColor" />
+                </svg>
+                <span>Via</span>
+            </button>
+            <button class="tab" data-tab="clearance">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <rect x="2" y="8" width="5" height="4" fill="currentColor" />
+                    <rect x="13" y="8" width="5" height="4" fill="currentColor" />
+                    <path d="M7 10h6" stroke="currentColor" stroke-width="1" stroke-dasharray="2,1" />
+                </svg>
+                <span data-tr="Mesafe" data-en="Clearance">Mesafe</span>
+            </button>
+            <button class="tab" data-tab="diff">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <rect x="2" y="6" width="16" height="2" rx="0.5" fill="currentColor" />
+                    <rect x="2" y="12" width="16" height="2" rx="0.5" fill="currentColor" />
+                </svg>
+                <span>Diff</span>
+            </button>
+            <button class="tab" data-tab="loss">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <path d="M3 14 L6 8 L9 14 L12 8 L15 14" stroke="currentColor" stroke-width="1.5" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round" />
+                    <line x1="15" y1="14" x2="18" y2="14" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" />
+                    <line x1="2" y1="14" x2="3" y2="14" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" />
+                </svg>
+                <span data-tr="Kayıp" data-en="Loss">Kayıp</span>
+            </button>
+            <button class="tab" data-tab="info">
+                <svg viewBox="0 0 20 20" width="14" height="14">
+                    <circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    <line x1="10" y1="6" x2="10" y2="11" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" />
+                    <circle cx="10" cy="14" r="1" fill="currentColor" />
+                </svg>
+                <span data-tr="Bilgi" data-en="Info">Bilgi</span>
+            </button>
+        </nav>
+
+        <!-- Tab Content -->
+        <main class="content">
+
+            <!-- TRACE WIDTH TAB -->
+            <section id="tab-trace" class="tab-content active">
+                <div class="card">
+                    <!-- Trace Diagram - PCB style with soft blue -->
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 220 90" class="diagram">
+                            <defs>
+                                <linearGradient id="copperGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#d4a574" />
+                                    <stop offset="100%" style="stop-color:#b8956a" />
+                                </linearGradient>
+                            </defs>
+                            <!-- Th label removed -->
+                            <!-- PCB Base (green solder mask) -->
+                            <rect x="10" y="25" width="180" height="45" fill="#4a7c4a" stroke="#3d6b3d" stroke-width="1"
+                                rx="3" />
+                            <!-- Copper Trace on PCB -->
+                            <rect x="25" y="35" width="150" height="25" fill="url(#copperGrad)" stroke="#a07850"
+                                stroke-width="1" rx="2" />
+                            <!-- Current flow arrows (centered in trace) -->
+                            <path d="M45,47 L60,47 M70,47 L85,47 M95,47 L110,47 M120,47 L135,47" stroke="#fff"
+                                stroke-width="2" stroke-linecap="round" />
+                            <polygon points="145,47 138,43 138,51" fill="#fff" />
+                            <text x="100" y="15" text-anchor="middle" fill="var(--text-secondary)" font-size="9">Current
+                                (I) →</text>
+                            <!-- Width arrow (now Length) -->
+                            <line x1="36" y1="78" x2="164" y2="78" stroke="#63b3ed" stroke-width="1.5" />
+                            <polygon points="30,78 36,75 36,81" fill="#63b3ed" />
+                            <polygon points="170,78 164,75 164,81" fill="#63b3ed" />
+                            <text x="100" y="87" text-anchor="middle" fill="#63b3ed" font-size="9"
+                                font-weight="bold">Length (L)</text>
+                            <!-- Thickness arrow (now Width) -->
+                            <line x1="197" y1="41" x2="197" y2="54" stroke="#63b3ed" stroke-width="1.5" />
+                            <polygon points="197,35 194,41 200,41" fill="#63b3ed" />
+                            <polygon points="197,60 194,54 200,54" fill="#63b3ed" />
+                            <text x="215" y="50" fill="#63b3ed" font-size="9" font-weight="bold">W</text>
+
+                            <!-- Th label removed from top right since it's now Top View -->
+                        </svg>
+                        <p class="diagram-caption" data-tr="Hat Üst Görünümü (Top View)" data-en="Trace Top View">Hat
+                            Üst Görünümü (Top View)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-tr="Akım (A)" data-en="Current (A)">Akım (A)</label>
+                        <input type="number" id="trace-current" value="1" step="0.1" min="0.1">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-tr="Bakır Kalınlığı" data-en="Copper Thickness">Bakır Kalınlığı</label>
+                            <select id="trace-copper">
+                                <option value="0.5">0.5 oz (17µm)</option>
+                                <option value="1" selected>1 oz (35µm)</option>
+                                <option value="2">2 oz (70µm)</option>
+                                <option value="custom" data-tr="Özel (Custom)" data-en="Custom">Özel (Custom)</option>
+                            </select>
+                            <input type="number" id="trace-copper-custom" placeholder="oz" step="0.1" min="0.1" max="10"
+                                style="display:none; margin-top:4px;" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label data-tr="Katman" data-en="Layer">Katman</label>
+                            <select id="trace-layer">
+                                <option value="external" data-tr="Dış (External)" data-en="External">Dış (External)
+                                </option>
+                                <option value="internal" data-tr="İç (Internal)" data-en="Internal">İç (Internal)
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-tr="Max Sıcaklık Artışı (°C)" data-en="Max Temp Rise (°C)">Max Sıcaklık Artışı
+                            (°C)</label>
+                        <input type="number" id="trace-temp-rise" value="10" step="5" min="5" max="100">
+                    </div>
+                    <button class="btn-primary" id="btn-trace-calc" data-tr="Hesapla"
+                        data-en="Calculate">Hesapla</button>
+                </div>
+
+                <div class="card result-card" id="trace-results" style="display:none">
+                    <h3 data-tr="Sonuç: Minimum İz Genişliği" data-en="Result: Minimum Trace Width">Sonuç: Minimum İz
+                        Genişliği</h3>
+                    <div class="result-grid" id="trace-result-grid"></div>
+                </div>
+            </section>
+
+            <!-- VIA TAB - Current-based sizing -->
+            <section id="tab-via" class="tab-content">
+                <div class="card">
+                    <!-- Via Diagram - Soft green colors, English only -->
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 100" class="diagram">
+                            <!-- Cross section view - Soft green like diff -->
+                            <rect x="10" y="20" width="80" height="60" fill="#4a7c4a" stroke="#3d6b3d"
+                                stroke-width="1" />
+                            <!-- Via hole -->
+                            <rect x="35" y="20" width="30" height="60" fill="#1f2940" />
+                            <!-- Copper plating -->
+                            <rect x="35" y="20" width="5" height="60" fill="#d4a574" />
+                            <rect x="60" y="20" width="5" height="60" fill="#d4a574" />
+                            <!-- Pad top -->
+                            <rect x="25" y="15" width="50" height="8" fill="#d4a574" rx="2" />
+                            <!-- Pad bottom -->
+                            <rect x="25" y="77" width="50" height="8" fill="#d4a574" rx="2" />
+
+                            <!-- Labels - English only -->
+                            <line x1="25" y1="10" x2="75" y2="10" stroke="var(--accent)" stroke-width="1" />
+                            <text x="50" y="8" text-anchor="middle" fill="var(--accent)" font-size="7">Pad ⌀</text>
+
+                            <line x1="40" y1="50" x2="60" y2="50" stroke="var(--warning)" stroke-width="1" />
+                            <text x="50" y="48" text-anchor="middle" fill="var(--warning)" font-size="6">Drill</text>
+
+
+
+                            <!-- Top view - Soft green -->
+                            <circle cx="150" cy="50" r="30" fill="#4a7c4a" stroke="#3d6b3d" stroke-width="1" />
+                            <circle cx="150" cy="50" r="22" fill="#d4a574" />
+                            <circle cx="150" cy="50" r="12" fill="#1f2940" />
+
+                            <!-- Top view labels -->
+                            <line x1="150" y1="20" x2="150" y2="10" stroke="var(--accent)" stroke-width="1" />
+                            <line x1="128" y1="50" x2="172" y2="50" stroke="var(--accent)" stroke-width="0.5"
+                                stroke-dasharray="2,2" />
+                            <text x="150" y="8" text-anchor="middle" fill="var(--accent)" font-size="7">Pad</text>
+                            <text x="150" y="53" text-anchor="middle" fill="var(--warning)" font-size="6">Drill</text>
+                        </svg>
+                        <p class="diagram-caption" data-tr="Via kesiti ve üst görünüm"
+                            data-en="Via cross-section and top view">Via kesiti ve üst görünüm</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-tr="Taşınacak Akım (A)" data-en="Current to Carry (A)">Taşınacak Akım (A)</label>
+                        <input type="number" id="via-current" value="1" step="0.1" min="0.1">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><span data-tr="Bitmiş Delik" data-en="Finished Hole">Bitmiş Delik</span> (<span
+                                    class="unit-text">mm</span>)</label>
+                            <input type="number" id="via-drill" value="0.3" step="0.05" min="0.15">
+                        </div>
+                        <div class="form-group">
+                            <label data-tr="Annular Ring" data-en="Annular Ring">Annular Ring</label>
+                            <select id="via-annular">
+                                <option value="0.15" data-tr="Kompakt (0.15mm)" data-en="Compact (0.15mm)">Kompakt
+                                    (0.15mm)</option>
+                                <option value="0.20" selected data-tr="Standart (0.20mm)" data-en="Standard (0.20mm)">
+                                    Standart (0.20mm)</option>
+                                <option value="0.25" data-tr="Sağlam (0.25mm)" data-en="Robust (0.25mm)">Sağlam (0.25mm)
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-tr="Kaplama" data-en="Plating">Kaplama</label>
+                            <select id="via-plating">
+                                <option value="17.4">0.5 oz (17.4µm)</option>
+                                <option value="34.8" selected>1 oz (34.8µm)</option>
+                                <option value="69.6">2 oz (69.6µm)</option>
+                                <option value="custom" data-tr="Özel (Custom)" data-en="Custom">Özel (Custom)</option>
+                            </select>
+                            <input type="number" id="via-plating-custom" placeholder="oz" step="0.1" min="0.25" max="10"
+                                style="display:none; margin-top:4px;" value="1">
+                        </div>
+                        <div class="form-group">
+                            <label><span data-tr="Kart Kalınlığı" data-en="Board Thickness">Kart Kalınlığı</span> (<span
+                                    class="unit-text">mm</span>)</label>
+                            <input type="number" id="via-board" value="1.6" step="0.1" min="0.4">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-tr="Sıcaklık Artışı (°C)" data-en="Temp Rise (°C)">Sıcaklık Artışı (°C)</label>
+                            <input type="number" id="via-temp" value="10" step="5" min="5">
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="btn-via-calc" data-tr="Hesapla" data-en="Calculate">Hesapla</button>
+                </div>
+
+                <div class="card result-card" id="via-results" style="display:none">
+                    <!-- Results populated by JS -->
+                </div>
+            </section>
+
+            <!-- CLEARANCE TAB - Final Redesign -->
+            <section id="tab-clearance" class="tab-content">
+                <div class="card">
+                    <!-- Clearance Diagram - Clean, simple design -->
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 220 85" class="diagram">
+                            <!-- PCB base - soft green -->
+                            <rect x="10" y="45" width="200" height="30" fill="#4a7c4a" stroke="#3d6b3d"
+                                stroke-width="1" />
+
+                            <!-- PADS -->
+                            <rect x="25" y="32" width="50" height="13" fill="#d4a574" rx="2" />
+                            <rect x="145" y="32" width="50" height="13" fill="#d4a574" rx="2" />
+
+                            <!-- LABELS (HIGH=Teal, GND=Pink) above pads -->
+                            <text x="50" y="28" text-anchor="middle" fill="#4db6ac" font-size="9" font-weight="bold"
+                                font-family="sans-serif">HIGH</text>
+                            <text x="170" y="28" text-anchor="middle" fill="#ff8a80" font-size="9" font-weight="bold"
+                                font-family="sans-serif">GND</text>
+
+                            <!-- Clearance Text centered -->
+                            <text x="110" y="42" text-anchor="middle" fill="#63b3ed" font-size="9"
+                                font-weight="bold">Clearance</text>
+
+                            <!-- Dashed arrows ← Clearance → -->
+                            <!-- Left: dashed line from text, arrow tip at end (toward HIGH) -->
+                            <line x1="85" y1="39" x2="80" y2="39" stroke="#63b3ed" stroke-width="1.5"
+                                stroke-dasharray="3,2" />
+                            <polygon points="78,39 84,36 84,42" fill="#63b3ed" />
+                            <!-- Right: dashed line from text, arrow tip at end (toward GND) -->
+                            <line x1="135" y1="39" x2="140" y2="39" stroke="#63b3ed" stroke-width="1.5"
+                                stroke-dasharray="3,2" />
+                            <polygon points="142,39 136,36 136,42" fill="#63b3ed" />
+
+                            <!-- Arc Risk (Inside PCB, Yellow, with Icon) -->
+                            <path d="M85,63 L88,58 L90,63 L93,58" stroke="#ffe066" stroke-width="1.5" fill="none" />
+                            <text x="115" y="63" text-anchor="middle" fill="#ffe066" font-size="10"
+                                font-weight="bold">Arc Risk!</text>
+                        </svg>
+                        <p class="diagram-caption" data-tr="Voltaja göre minimum mesafe"
+                            data-en="Minimum spacing based on voltage">Voltaja göre minimum mesafe</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-tr="Çalışma Voltajı (V)" data-en="Working Voltage (V)">Çalışma Voltajı
+                            (V)</label>
+                        <input type="number" id="clear-voltage" value="12" step="1" min="1">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-tr="Voltaj Tipi" data-en="Voltage Type">Voltaj Tipi</label>
+                            <select id="clear-vtype">
+                                <option value="dc">DC</option>
+                                <option value="ac">AC (RMS)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-tr="Ortam" data-en="Environment">Ortam</label>
+                            <select id="clear-env">
+                                <option value="indoor" data-tr="İç Mekan (Temiz)" data-en="Indoor (Clean)">İç Mekan
+                                    (Temiz)</option>
+                                <option value="outdoor" data-tr="Dış Mekan" data-en="Outdoor">Dış Mekan</option>
+                                <option value="conformal" data-tr="Conformal Kaplama" data-en="Conformal Coated">
+                                    Conformal Kaplama</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" id="btn-clear-calc" data-tr="Hesapla"
+                        data-en="Calculate">Hesapla</button>
+                </div>
+
+                <div class="card result-card" id="clear-results" style="display:none">
+                    <h3 data-tr="Minimum Mesafeler" data-en="Minimum Spacing">Minimum Mesafeler</h3>
+                    <div class="result-grid" id="clear-result-grid"></div>
+                    <div class="info-note" id="clear-note"></div>
+                </div>
+            </section>
+
+            <!-- DIFFERENTIAL PAIRS TAB -->
+            <section id="tab-diff" class="tab-content">
+                <div class="card">
+                    <!-- Differential Pair Diagram - already soft -->
+                    <div class="diagram-box">
+                        <svg viewBox="0 0 200 90" class="diagram">
+                            <!-- Dielectric layer -->
+                            <rect x="10" y="50" width="180" height="25" fill="#4a7c4a" stroke="#3d6b3d"
+                                stroke-width="1" />
+                            <text x="100" y="65" text-anchor="middle" fill="#fff" font-size="7" opacity="0.7">Dielectric
+                                (εr)</text>
+
+                            <!-- Ground plane -->
+                            <rect x="10" y="75" width="180" height="10" fill="#d4a574" />
+                            <text x="100" y="82" text-anchor="middle" fill="#1a1a2e" font-size="6">GND Plane</text>
+
+                            <!-- Left trace (D+) -->
+                            <rect x="50" y="42" width="30" height="10" fill="#d4a574" rx="1" />
+                            <text x="65" y="38" text-anchor="middle" fill="#4fd1c5" font-size="8"
+                                font-weight="bold">D+</text>
+
+                            <!-- Right trace (D-) -->
+                            <rect x="120" y="42" width="30" height="10" fill="#d4a574" rx="1" />
+                            <text x="135" y="38" text-anchor="middle" fill="#fc8181" font-size="8"
+                                font-weight="bold">D-</text>
+
+                            <!-- Width arrows -->
+                            <line x1="50" y1="55" x2="80" y2="55" stroke="var(--accent)" stroke-width="1" />
+                            <text x="65" y="60" text-anchor="middle" fill="var(--accent)" font-size="6">w</text>
+
+                            <!-- Spacing arrow -->
+                            <line x1="80" y1="47" x2="120" y2="47" stroke="var(--warning)" stroke-width="1.5" />
+                            <polygon points="80,47 86,44 86,50" fill="var(--warning)" />
+                            <polygon points="120,47 114,44 114,50" fill="var(--warning)" />
+                            <text x="100" y="45" text-anchor="middle" fill="var(--warning)" font-size="7"
+                                font-weight="bold">s</text>
+
+                            <!-- Height arrow -->
+                            <line x1="185" y1="50" x2="185" y2="75" stroke="var(--accent)" stroke-width="1" />
+                            <text x="192" y="65" fill="var(--accent)" font-size="6">h</text>
+
+                            <!-- Signal waves -->
+                            <path d="M55,25 Q60,20 65,25 Q70,30 75,25" stroke="#4fd1c5" stroke-width="1.5"
+                                fill="none" />
+                            <path d="M125,25 Q130,30 135,25 Q140,20 145,25" stroke="#fc8181" stroke-width="1.5"
+                                fill="none" />
+                        </svg>
+                        <p class="diagram-caption" data-tr="Diferansiyel çift (USB, HDMI vb.)"
+                            data-en="Differential pair (USB, HDMI etc.)">Diferansiyel çift (USB, HDMI vb.)</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label data-tr="Hedef Empedans (Ω)" data-en="Target Impedance (Ω)">Hedef Empedans
+                            (Ω)</label>
+                        <select id="diff-target">
+                            <option value="90">90Ω (USB 2.0)</option>
+                            <option value="100" selected>100Ω (USB 3.0, HDMI)</option>
+                            <option value="85">85Ω (SATA)</option>
+                        </select>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label><span data-tr="Dielektrik h" data-en="Dielectric h">Dielektrik h</span> (<span
+                                    class="unit-text">mm</span>)</label>
+                            <input type="number" id="diff-h" value="0.2" step="0.01" min="0.05">
+                        </div>
+                        <div class="form-group">
+                            <label>εr</label>
+                            <select id="diff-er">
+                                <option value="3.9">FR4 (3.9)</option>
+                                <option value="4.2">FR4 (4.2)</option>
+                                <option value="4.5" selected>FR4 (4.5)</option>
+                                <option value="3.38">Rogers RO4003C (3.38)</option>
+                                <option value="3.48">Rogers RO4350B (3.48)</option>
+                                <option value="2.20">PTFE / Duroid 5880 (2.20)</option>
+                                <option value="custom" data-tr="Özel (Custom)" data-en="Custom">Özel (Custom)</option>
+                            </select>
+                            <input type="number" id="diff-er-custom" placeholder="εr" step="0.01" min="1" max="15"
+                                style="display:none; margin-top:4px;" value="4.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label data-tr="Bakır Kalınlığı" data-en="Copper Thickness">Bakır Kalınlığı</label>
+                        <select id="diff-copper">
+                            <option value="0.5">0.5 oz (17µm)</option>
+                            <option value="1" selected>1 oz (35µm)</option>
+                            <option value="custom" data-tr="Özel (Custom)" data-en="Custom">Özel (Custom)</option>
+                        </select>
+                        <input type="number" id="diff-copper-custom" placeholder="oz" step="0.1" min="0.1" max="10"
+                            style="display:none; margin-top:4px;" value="1">
+                    </div>
+                    <button class="btn-primary" id="btn-diff-calc" data-tr="Hesapla"
+                        data-en="Calculate">Hesapla</button>
+                </div>
+
+                <div class="card result-card" id="diff-results" style="display:none">
+                    <h3 data-tr="Önerilen Boyutlar" data-en="Recommended Dimensions">Önerilen Boyutlar</h3>
+                    <div class="result-grid" id="diff-result-grid"></div>
+                </div>
+            </section>
+
+            <!-- LOSS TAB -->
+            <section id="tab-loss" class="tab-content">
+                <div class="card">
+                    <!-- Common Input -->
+                    <div class="form-group">
+                        <label data-tr="Akım (A)" data-en="Current (A)">Akım (A)</label>
+                        <input type="number" id="loss-current" value="1" step="0.1" min="0">
+                        <small style="color:var(--text-secondary); font-size:10px;"
+                            data-tr="(Opsiyonel: Vdrop ve Güç için)" data-en="(Optional: for Vdrop & Power)">(Opsiyonel:
+                            Vdrop ve Güç için)</small>
+                    </div>
+
+                    <!-- TRACE INPUTS -->
+                    <div id="loss-trace-inputs">
+                        <!-- Re-using Trace Diagram Logic (Simplified Copy) -->
+                        <div class="diagram-box">
+                            <svg viewBox="0 0 220 90" class="diagram">
+                                <rect x="30" y="30" width="160" height="40" fill="#4a7c4a" stroke="#3d6b3d"
+                                    stroke-width="1" />
+                                <rect x="30" y="42" width="160" height="16" fill="#d4a574" />
+                                <line x1="30" y1="20" x2="190" y2="20" stroke="#63b3ed" stroke-width="1" />
+                                <text x="110" y="15" text-anchor="middle" fill="#63b3ed" font-size="9"
+                                    font-weight="bold">Length (L)</text>
+                                <text x="200" y="50" fill="#63b3ed" font-size="9" font-weight="bold">W</text>
+                            </svg>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label><span data-tr="Uzunluk (L)" data-en="Length (L)">Uzunluk (L)</span> (<span
+                                        class="unit-text">mm</span>)</label>
+                                <input type="number" id="loss-trace-len" value="50" step="1" min="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label><span data-tr="Genişlik (W)" data-en="Width (W)">Genişlik (W)</span> (<span
+                                        class="unit-text">mm</span>)</label>
+                                <input type="number" id="loss-trace-width" value="0.25" step="0.01" min="0.01">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label data-tr="Bakır Kalınlığı" data-en="Copper Thickness">Bakır Kalınlığı</label>
+                                <select id="loss-trace-copper">
+                                    <option value="0.5">0.5 oz (17µm)</option>
+                                    <option value="1" selected>1 oz (35µm)</option>
+                                    <option value="2">2 oz (70µm)</option>
+                                    <option value="custom" data-tr="Özel (Custom)" data-en="Custom">Özel (Custom)
+                                    </option>
+                                </select>
+                                <input type="number" id="loss-trace-copper-custom" placeholder="oz" step="0.1" min="0.1"
+                                    max="10" style="display:none; margin-top:4px;" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label data-tr="Sıcaklık (°C)" data-en="Temperature (°C)">Sıcaklık (°C)</label>
+                                <input type="number" id="loss-temp" value="25" step="5" min="-50">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary" id="btn-loss-calc" data-tr="Hesapla"
+                        data-en="Calculate">Hesapla</button>
+                </div>
+
+                <div class="card result-card" id="loss-results" style="display:none">
+                    <h3 data-tr="Kayıp Analizi" data-en="Loss Analysis">Kayıp Analizi</h3>
+                    <div class="result-grid" id="loss-result-grid"></div>
+                    <div class="info-note" style="margin-top:10px;">
+                        <small data-tr="Not: Sadece DC kayıpları içerir. Skin effect dahil değildir."
+                            data-en="Note: DC model only. Skin effect not included.">Not: Sadece DC kayıpları içerir.
+                            Skin effect dahil değildir.</small>
+                    </div>
+                </div>
+            </section>
+
+            <!-- INFO TAB -->
+            <section id="tab-info" class="tab-content">
+                <div class="card">
+                    <h3 data-tr="ℹ Teknik Dokümantasyon" data-en="ℹ Technical Documentation">ℹ Teknik Dokümantasyon</h3>
+
+                    <!-- TRACE -->
+                    <div class="info-block"
+                        style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <h4 style="font-size: 12px; color: var(--accent); margin-bottom: 4px;"
+                            data-tr="1. Hat Genişliği (IPC-2152)" data-en="1. Trace Width (IPC-2152)">1. Hat Genişliği
+                            (IPC-2152)</h4>
+                        <p class="data-text" data-tr="IPC-2152 Standardı (2009) esas alınır."
+                            data-en="Based on IPC-2152 Standard (2009)."></p>
+
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 1: Fiziksel Kesit" data-en="Step 1: Physical Area"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">Area = Width × Thickness</code>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 2: Akım Kapasitesi" data-en="Step 2: Current Capacity"></strong>
+                            <p style="font-size:9px; color:var(--text-secondary);" data-tr="Eğri uydurma formülü:"
+                                data-en="Curve fitting formula:"></p>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">I = k · ΔT^0.44 · A^0.725</code>
+                            <span style="font-size:8px; color:var(--text-secondary);">k ≈ 0.048, ΔT: Temp Rise, A:
+                                Area</span>
+                        </div>
+                    </div>
+
+                    <!-- VIA -->
+                    <div class="info-block"
+                        style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <h4 style="font-size: 12px; color: var(--accent); margin-bottom: 4px;"
+                            data-tr="2. Via Kapasitesi" data-en="2. Via Capacity">2. Via Kapasitesi</h4>
+                        <p class="data-text" data-tr="Saturn PCB Toolkit ile Kalibre Edilmiş IPC-2221."
+                            data-en="IPC-2221 Calibrated with Saturn PCB Toolkit."></p>
+
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 1: Halka Alanı" data-en="Step 1: Annulus Area"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">A = π · (r_out² - r_in²)</code>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 2: Akım Kapasitesi" data-en="Step 2: Current Capacity"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">I = k · ΔT^0.44 · A^0.725</code>
+                            <span style="font-size:8px; color:var(--text-secondary);"
+                                data-tr="k = 11.0 (Saturn PCB referanslı kalibrasyon)"
+                                data-en="k = 11.0 (Calibrated from Saturn PCB)"></span>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 3: Kontrol" data-en="Step 3: Verification"></strong>
+                            <span style="font-size:9px;" data-tr="Boy Oranı (Aspect Ratio) kontrol edilir (Max 10:1)."
+                                data-en="Aspect Ratio check (Max 10:1)."></span>
+                        </div>
+                    </div>
+
+                    <!-- CLEARANCE -->
+                    <div class="info-block"
+                        style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <h4 style="font-size: 12px; color: var(--accent); margin-bottom: 4px;"
+                            data-tr="3. Clearance (Aralık)" data-en="3. Clearance (Spacing)">3. Clearance (Aralık)
+                        </h4>
+                        <p class="data-text" data-tr="IEC-60664-1 / IPC-2221B Standartları."
+                            data-en="IEC-60664-1 / IPC-2221B Standards."></p>
+
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 1: Tepe Voltaj" data-en="Step 1: Peak Voltage"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">V_peak = V_rms · √2  (for AC)</code>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 2: Tablo Referansı" data-en="Step 2: Table Lookup"></strong>
+                            <span style="font-size:9px;" data-tr="IEC tablosundan voltaja uygun aralık seçilir."
+                                data-en="Selects spacing from IEC table based on voltage."></span>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 3: Çevresel Faktör" data-en="Step 3: Environmental Factor"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">Final = Base · Multiplier</code>
+                            <span style="font-size:8px; color:var(--text-secondary);"
+                                data-tr="Kirli ortam: x1.5, Kaplamalı: x0.5" data-en="Dirty: x1.5, Coated: x0.5"></span>
+                        </div>
+                    </div>
+
+                    <!-- DIFF PAIR -->
+                    <div class="info-block"
+                        style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <h4 style="font-size: 12px; color: var(--accent); margin-bottom: 4px;"
+                            data-tr="4. Diferansiyel Çift" data-en="4. Differential Pair">4. Diferansiyel Çift</h4>
+                        <p class="data-text" data-tr="Analitik Formüller (Hammerstad / Wadell)."
+                            data-en="Analytic Formulas (Hammerstad / Wadell)."></p>
+
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 1: Tek Hat Empedansı (Z0)"
+                                data-en="Step 1: Single Line Impedance (Z0)"></strong>
+                            <span style="font-size:9px;" data-tr="Microstrip veya Stripline formülleri ile hesaplanır."
+                                data-en="Calculated via Microstrip or Stripline formulas."></span>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 2: Kuplaj Faktörü (k)" data-en="Step 2: Coupling Factor (k)"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">k = e^(-2.9 · s / h)</code>
+                            <span style="font-size:8px; color:var(--text-secondary);" data-tr="Hatlar arası etkileşim."
+                                data-en="Interaction between lines."></span>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 3: Diferansiyel Empedans"
+                                data-en="Step 3: Differential Impedance"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">Z_diff = 2 · Z0 · (1 - k)</code>
+                        </div>
+                    </div>
+
+                    <!-- LOSS ANALYSIS -->
+                    <div class="info-block"
+                        style="margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">
+                        <h4 style="font-size: 12px; color: var(--accent); margin-bottom: 4px;"
+                            data-tr="5. Kayıp Analizi (Loss)" data-en="5. Loss Analysis">5. Kayıp Analizi (Loss)</h4>
+                        <p class="data-text" data-tr="Basit DC analizi (Skin effect hariç)."
+                            data-en="Simple DC analysis (excluding Skin effect)."></p>
+
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 1: Direnç (R)" data-en="Step 1: Resistance (R)"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">R = ρ · L / A</code>
+                            <span style="font-size:8px; color:var(--text-secondary);"
+                                data-tr="ρ: Bakır (Temp compensated)" data-en="ρ: Copper (Temp compensated)"></span>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 2: Gerilim Düşümü" data-en="Step 2: Voltage Drop"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">V_drop = I · R</code>
+                        </div>
+                        <div style="font-size: 10px; margin-top:4px;">
+                            <strong data-tr="Adım 3: Güç Kaybı" data-en="Step 3: Power Loss"></strong>
+                            <code
+                                style="display:block; background:var(--bg-primary); padding:2px; font-size:9px;">P_loss = I² · R</code>
+                        </div>
+                    </div>
+
+                    <ul class="info-list"
+                        style="margin-top: 15px; border-top: 2px solid var(--border); padding-top: 10px;">
+                        <li data-tr="✓ Tamamen çevrimdışı çalışır" data-en="✓ Works completely offline">✓
+                            Tamamen
+                            çevrimdışı çalışır</li>
+                        <li data-tr="✓ Ağ bağlantısı gerektirmez" data-en="✓ No network connection required">✓ Ağ
+                            bağlantısı gerektirmez</li>
+                        <li data-tr="⚠ Hesaplanan hiçbir işlem %100 doğrulukta değildir."
+                            data-en="⚠ No calculation is 100% accurate.">⚠ Hesaplanan hiçbir işlem %100 doğrulukta
+                            değildir.</li>
+                        <li data-tr="⚠ Sonuçları daima üretici ile doğrulayın"
+                            data-en="⚠ Always verify results with manufacturer">⚠ Sonuçları daima üretici
+                            ile
+                            doğrulayın</li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="core/constants.js"></script>
+    <script src="core/units.js"></script>
+    <script src="core/presets.js"></script>
+    <script src="calc/trace-width.js"></script>
+    <script src="calc/voltage-drop.js"></script>
+    <script src="calc/via-sizing.js"></script>
+    <script src="calc/via-current.js"></script>
+    <script src="calc/differential-pairs.js"></script>
+    <script src="popup.js"></script>
+</body>
+
+</html>
