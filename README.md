@@ -2,7 +2,9 @@
 
 Mühendislik birim dönüşümlerini ve temel elektronik yardımcılarını tarayıcıdan ayrılmadan kullanabilmek için hazırlanmış Chrome eklentisi.
 
-Kaynak sürümü: **1.1** · Chrome Manifest V3
+İlk aktarımın kaynak tabanı: **1.1** · Chrome Manifest V3
+
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/unit-converter/releases/latest)
 
 ## Özellikler
 
