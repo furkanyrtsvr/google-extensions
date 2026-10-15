@@ -2,7 +2,9 @@
 
 DigiKey ürünlerini tek tek kopyalama işini azaltmak ve elektronik projelerin malzeme listelerini proje bazında toplamak için hazırlanmış Chrome eklentisi.
 
-Kaynak sürümü: **1.0** · Chrome Manifest V3
+İlk aktarımın kaynak tabanı: **1.0** · Chrome Manifest V3
+
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/bom-list-helper-digikey/releases/latest)
 
 ## Özellikler
 
