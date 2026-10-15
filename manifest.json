@@ -1,0 +1,33 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "icon_128x128.png",
+         "16": "icon_16x16.png",
+         "48": "icon_48x48.png"
+      },
+      "default_popup": "popup.html",
+      "default_title": "Open Unit Converter"
+   },
+   "content_scripts": [ {
+      "all_frames": true,
+      "js": [ "content.js" ],
+      "matches": [ "\u003Call_urls>" ]
+   } ],
+   "description": "A professional, floating engineering unit converter for Chrome.",
+   "icons": {
+      "128": "icon_128x128.png",
+      "16": "icon_16x16.png",
+      "48": "icon_48x48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApWEt1NH1MfrVPxZfKv6FcVMPT2eH70qT7LgQVzmzD8w9mBD5X5uR8+fUcQ9Xh4iTXQcQmUOhTz84CzN3GcVL9AbkQiztpIvAYUbJU9P6Gr2CJHRmXUBZepr8EIBjaHuExDZHEbwERxhZxiEggXexl7uxME00WLCdo9S81APWWb4wEoZ5AKLozwyh9kvj9Y9XsYZvL51boQr9ceVuqozzmMwy1ZlS9sWivK0PePPam79s/a85+IiF1cUmUTr8Sczz+QVUWFsA1JgiTijAVeGP9WxLXLofWy055NC3NplMXGIKvi8lTlpOZasAvDuLV7EqDDsCGjdmY4+Dhsb+KTxv6wIDAQAB",
+   "manifest_version": 3,
+   "name": "Unit Converter",
+   "options_page": "options.html",
+   "permissions": [ "storage", "clipboardWrite" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.1",
+   "web_accessible_resources": [ {
+      "matches": [ "\u003Call_urls>" ],
+      "resources": [ "styles.css" ]
+   } ]
+}
