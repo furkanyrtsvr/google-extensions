@@ -2,7 +2,9 @@
 
 GitHub’da kaynak dosyalarını incelerken desteklenen dosyaları indirmeden önizleme araçlarına ulaşmayı kolaylaştırmak için hazırlanmış Chrome eklentisi.
 
-Kaynak sürümü: **1.1** · Chrome Manifest V3
+İlk aktarımın kaynak tabanı: **1.1** · Chrome Manifest V3
+
+[Güncel GitHub sürümü ve kurulum ZIP’i](https://github.com/furkanyrtsvr/viewer-helper-github/releases/latest)
 
 ## Özellikler
 
@@ -33,9 +35,9 @@ GitHub’da desteklenen bir dosyanın blob sayfasını açın. Raw düğmesinin 
 
 Aşağıdaki dört görsel kullanıcı tarafından sağlanan tanıtım arşivinden alınmıştır.
 
-### PCB/Gerber önizlemesi
+### PCB/KiCad önizlemesi
 
-![PCB/Gerber önizlemesi](docs/images/01.png)
+![PCB/KiCad önizlemesi](docs/images/01.png)
 
 ### 3B dosya önizlemesi
 
